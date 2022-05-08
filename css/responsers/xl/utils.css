@@ -1,0 +1,184 @@
+/* Extra Large */
+@media only screen and (min-width: 1200px) {
+	.xl-aspr-1 { aspect-ratio: 1/1; }
+	.xl-aspr-1x1 { aspect-ratio: 1/1; }
+	
+	.xl-bs-n { border-style: none; }
+	.xl-bs-g { border-style: groove; }
+	.xl-bs-s { border-style: solid; }
+	.xl-bs-ds { border-style: dashed; }
+	.xl-bs-dt { border-style: dotted; }
+	.xl-bs-db { border-style: double; }
+	
+	.xl-bls-ds { border-left-style: dashed; }
+	.xl-bls-dt { border-left-style: dotted; }
+	.xl-bls-db { border-left-style: double; }
+	.xl-bls-g { border-left-style: groove; }
+	.xl-bls-n { border-left-style: none; }
+	.xl-bls-s { border-left-style: solid; }
+	
+	.xl-brs-n { border-right-style: none; }
+	.xl-brs-g { border-right-style: groove; }
+	.xl-brs-s { border-right-style: solid; }
+	.xl-brs-ds { border-right-style: dashed; }
+	.xl-brs-dt { border-right-style: dotted; }
+	.xl-brs-db { border-right-style: double; }
+	
+	.xl-bbs-n { border-bottom-style: none; }
+	.xl-bbs-g { border-bottom-style: groove; }
+	.xl-bbs-s { border-bottom-style: solid; }
+	.xl-bbs-ds { border-bottom-style: dashed; }
+	.xl-bbs-dt { border-bottom-style: dotted; }
+	.xl-bbs-db { border-bottom-style: double; }
+	
+	.xl-bts-n { border-top-style: none; }
+	.xl-bts-g { border-top-style: groove; }
+	.xl-bts-s { border-top-style: solid; }
+	.xl-bts-ds { border-top-style: dashed; }
+	.xl-bts-dt { border-top-style: dotted; }
+	.xl-bts-db { border-top-style: double; }
+	
+	.xl-cs-n { cursor: none; }
+	.xl-cs-d { cursor: default; }
+	.xl-cs-p { cursor: pointer; }
+	.xl-cs-t { cursor: text; }
+	
+	.xl-d-f { display: flex; }
+	.xl-d-i { display: inline; }
+	.xl-d-b { display: block; }
+	.xl-d-n { display: none; }
+	.xl-d-us { display: unset; }
+	
+	.xl-f-1 { flex: 1; }
+	
+	.xl-fs-16 { font-size: 16px; } .fs-17 { font-size: 17px; } .fs-18 { font-size: 18px; }
+	.xl-fs-19 { font-size: 19px; } .fs-20 { font-size: 20px; } .fs-21 { font-size: 21px; }
+	.xl-fs-22 { font-size: 22px; } .fs-23 { font-size: 23px; } .fs-24 { font-size: 24px; }
+	.xl-fs-25 { font-size: 25px; } .fs-26 { font-size: 26px; } .fs-27 { font-size: 27px; }
+	.xl-fs-28 { font-size: 28px; } .fs-29 { font-size: 29px; } .fs-30 { font-size: 30px; }
+	
+	.xl-ff-en { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; }
+	.xl-ff-kh { font-family: "nokora", "hanuman", content; }
+	.xl-ff-fas { font-family: "FontAwesome"; }
+	
+	.xl-fw-1 { font-weight: 100; }
+	.xl-fw-2 { font-weight: 200; }
+	.xl-fw-3 { font-weight: 300; }
+	.xl-fw-4 { font-weight: 400; }
+	.xl-fw-5 { font-weight: 500; }
+	.xl-fw-6 { font-weight: 600; }
+	.xl-fw-7 { font-weight: 700; }
+	.xl-fw-8 { font-weight: 800; }
+	.xl-fw-9 { font-weight: 900; }
+	.xl-fw-b { font-weight: bold; }
+	.xl-fw-bd { font-weight: bolder; }
+	.xl-fw-lt { font-weight: lighter; }
+	.xl-fw-n { font-weight: normal; }
+	
+	.xl-h-0 { height: 0px; }
+	.xl-h-fc { height: fit-content; }
+	.xl-h-100p { height: 100%; }
+	
+	.xl-ls-n { list-style: none; }
+	.xl-ls-d { list-style: disc; }
+	.xl-ls-c { list-style: circle; }
+	
+	.xl-mxh-0 { max-height: 0px; }
+	.xl-mxh-100p { max-height: 100%; }
+	.xl-mxh-fc { max-height: fit-content; }
+	.xl-mxw-0 { max-width:0px; }
+	.xl-mxw-100p { max-width: 100%; }
+	.xl-mxw-fc { max-width: fit-content; }
+	
+	.xl-mnh-0 { min-height: 0px; }
+	.xl-mnh-100p { min-height: 100%; }
+	.xl-mnh-fc { min-height: fit-content; }
+	.xl-mnw-0 { min-width:0px; }
+	.xl-mnw-100p { min-width: 100%; }
+	.xl-mnw-fc { min-width: fit-content; }
+	
+	.xl-os-n { outline-style: none; }
+	.xl-os-g { outline-style: groove; }
+	.xl-os-s { outline-style: solid; }
+	.xl-os-ds { outline-style: dashed; }
+	.xl-os-dt { outline-style: dotted; }
+	.xl-os-db { outline-style: double; }
+	
+	.xl-of-a { overflow: auto; }
+	.xl-of-s { overflow: scroll; }
+	.xl-of-h { overflow: hidden; }
+	.xl-of-v { overflow: visible; }
+	
+	.xl-ofx-a { overflow-x: auto; }
+	.xl-ofx-s { overflow-x: scroll; }
+	.xl-ofx-h { overflow-x: hidden; }
+	.xl-ofx-v { overflow-x: visible; }
+	
+	.xl-ofy-a { overflow-y: auto; }
+	.xl-ofy-s { overflow-y: scroll; }
+	.xl-ofy-h { overflow-y: hidden; }
+	.xl-ofy-v { overflow-y: visible; }
+	
+	.xl-pe-n { pointer-events: none; }
+	.xl-pe-u { pointer-events: unset; }
+	
+	.xl-ps-a { position: absolute; }
+	.xl-ps-f { position: fixed; }
+	.xl-ps-r { position: relative; }
+	.xl-ps-st { position: static; }
+	.xl-pos-sk { position: sticky; }
+	
+	.xl-s-0 {
+	  width: 0px;
+	  height: 0px;
+	}
+	.xl-s-100p {
+	  width: 100%;
+	  height: 100%;
+	}
+	.xl-s-fc {
+	  width: fit-content;
+	  height: fit-content;
+	}
+	
+	.xl-t-0 { top: 0px; }
+	.xl-l-0 { left: 0px; }
+	.xl-b-0 { bottom: 0px; }
+	.xl-r-0 { right: 0px; }
+	
+	.xl-t-100p { top: 100%; }
+	.xl-l-100p { left: 100%; }
+	.xl-b-100p { bottom: 100%; }
+	.xl-r-100p { right: 100%; }
+	
+	.xl-ta-c { text-align: center; }
+	.xl-ta-e { text-align: end; }
+	.xl-ta-s { text-align: start; }
+	
+	.xl-td-n { text-decoration: none; }
+	.xl-td-u { text-decoration: underline; }
+	
+	.xl-tt-c { text-transform: capitalize; }
+	.xl-tt-u { text-transform: uppercase; }
+	.xl-tt-l { text-transform: lowercase; }
+	.xl-tt-n { text-transform: none; }
+	
+	.xl-tof-e { text-overflow: ellipsis; }
+	.xl-tof-c { text-overflow: clip; }
+	
+	.xl-v-h { visibility: hidden; }
+	.xl-v-v { visibility: visible; }
+	.xl-v-c { visibility: collapse; }
+	
+	.xl-w-0 { width: 0px; }
+	.xl-w-fc { width: fit-content; }
+	.xl-w-100p { width: 100%; }
+	
+	.xl-ws-n { white-space: normal; }
+	.xl-ws-nw { white-space: nowrap; }
+	.xl-ws-p { white-space: pre; }
+	.xl-ws-pl { white-space: pre-line; }
+	.xl-ws-pw { white-space: pre-wrap; }
+	
+	.xl-z-1 { z-index: 1; }
+}

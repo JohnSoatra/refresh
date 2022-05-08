@@ -1,0 +1,184 @@
+/* Medium */
+@media only screen and (min-width: 768px) {
+	.md-aspr-1 { aspect-ratio: 1/1; }
+	.md-aspr-1x1 { aspect-ratio: 1/1; }
+	
+	.md-bs-n { border-style: none; }
+	.md-bs-g { border-style: groove; }
+	.md-bs-s { border-style: solid; }
+	.md-bs-ds { border-style: dashed; }
+	.md-bs-dt { border-style: dotted; }
+	.md-bs-db { border-style: double; }
+	
+	.md-bls-ds { border-left-style: dashed; }
+	.md-bls-dt { border-left-style: dotted; }
+	.md-bls-db { border-left-style: double; }
+	.md-bls-g { border-left-style: groove; }
+	.md-bls-n { border-left-style: none; }
+	.md-bls-s { border-left-style: solid; }
+	
+	.md-brs-n { border-right-style: none; }
+	.md-brs-g { border-right-style: groove; }
+	.md-brs-s { border-right-style: solid; }
+	.md-brs-ds { border-right-style: dashed; }
+	.md-brs-dt { border-right-style: dotted; }
+	.md-brs-db { border-right-style: double; }
+	
+	.md-bbs-n { border-bottom-style: none; }
+	.md-bbs-g { border-bottom-style: groove; }
+	.md-bbs-s { border-bottom-style: solid; }
+	.md-bbs-ds { border-bottom-style: dashed; }
+	.md-bbs-dt { border-bottom-style: dotted; }
+	.md-bbs-db { border-bottom-style: double; }
+	
+	.md-bts-n { border-top-style: none; }
+	.md-bts-g { border-top-style: groove; }
+	.md-bts-s { border-top-style: solid; }
+	.md-bts-ds { border-top-style: dashed; }
+	.md-bts-dt { border-top-style: dotted; }
+	.md-bts-db { border-top-style: double; }
+	
+	.md-cs-n { cursor: none; }
+	.md-cs-d { cursor: default; }
+	.md-cs-p { cursor: pointer; }
+	.md-cs-t { cursor: text; }
+	
+	.md-d-f { display: flex; }
+	.md-d-i { display: inline; }
+	.md-d-b { display: block; }
+	.md-d-n { display: none; }
+	.md-d-us { display: unset; }
+	
+	.md-f-1 { flex: 1; }
+	
+	.md-fs-16 { font-size: 16px; } .fs-17 { font-size: 17px; } .fs-18 { font-size: 18px; }
+	.md-fs-19 { font-size: 19px; } .fs-20 { font-size: 20px; } .fs-21 { font-size: 21px; }
+	.md-fs-22 { font-size: 22px; } .fs-23 { font-size: 23px; } .fs-24 { font-size: 24px; }
+	.md-fs-25 { font-size: 25px; } .fs-26 { font-size: 26px; } .fs-27 { font-size: 27px; }
+	.md-fs-28 { font-size: 28px; } .fs-29 { font-size: 29px; } .fs-30 { font-size: 30px; }
+	
+	.md-ff-en { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; }
+	.md-ff-kh { font-family: "nokora", "hanuman", content; }
+	.md-ff-fas { font-family: "FontAwesome"; }
+	
+	.md-fw-1 { font-weight: 100; }
+	.md-fw-2 { font-weight: 200; }
+	.md-fw-3 { font-weight: 300; }
+	.md-fw-4 { font-weight: 400; }
+	.md-fw-5 { font-weight: 500; }
+	.md-fw-6 { font-weight: 600; }
+	.md-fw-7 { font-weight: 700; }
+	.md-fw-8 { font-weight: 800; }
+	.md-fw-9 { font-weight: 900; }
+	.md-fw-b { font-weight: bold; }
+	.md-fw-bd { font-weight: bolder; }
+	.md-fw-lt { font-weight: lighter; }
+	.md-fw-n { font-weight: normal; }
+	
+	.md-h-0 { height: 0px; }
+	.md-h-fc { height: fit-content; }
+	.md-h-100p { height: 100%; }
+	
+	.md-ls-n { list-style: none; }
+	.md-ls-d { list-style: disc; }
+	.md-ls-c { list-style: circle; }
+	
+	.md-mxh-0 { max-height: 0px; }
+	.md-mxh-100p { max-height: 100%; }
+	.md-mxh-fc { max-height: fit-content; }
+	.md-mxw-0 { max-width:0px; }
+	.md-mxw-100p { max-width: 100%; }
+	.md-mxw-fc { max-width: fit-content; }
+	
+	.md-mnh-0 { min-height: 0px; }
+	.md-mnh-100p { min-height: 100%; }
+	.md-mnh-fc { min-height: fit-content; }
+	.md-mnw-0 { min-width:0px; }
+	.md-mnw-100p { min-width: 100%; }
+	.md-mnw-fc { min-width: fit-content; }
+	
+	.md-os-n { outline-style: none; }
+	.md-os-g { outline-style: groove; }
+	.md-os-s { outline-style: solid; }
+	.md-os-ds { outline-style: dashed; }
+	.md-os-dt { outline-style: dotted; }
+	.md-os-db { outline-style: double; }
+	
+	.md-of-a { overflow: auto; }
+	.md-of-s { overflow: scroll; }
+	.md-of-h { overflow: hidden; }
+	.md-of-v { overflow: visible; }
+	
+	.md-ofx-a { overflow-x: auto; }
+	.md-ofx-s { overflow-x: scroll; }
+	.md-ofx-h { overflow-x: hidden; }
+	.md-ofx-v { overflow-x: visible; }
+	
+	.md-ofy-a { overflow-y: auto; }
+	.md-ofy-s { overflow-y: scroll; }
+	.md-ofy-h { overflow-y: hidden; }
+	.md-ofy-v { overflow-y: visible; }
+	
+	.md-pe-n { pointer-events: none; }
+	.md-pe-u { pointer-events: unset; }
+	
+	.md-ps-a { position: absolute; }
+	.md-ps-f { position: fixed; }
+	.md-ps-r { position: relative; }
+	.md-ps-st { position: static; }
+	.md-pos-sk { position: sticky; }
+	
+	.md-s-0 {
+	  width: 0px;
+	  height: 0px;
+	}
+	.md-s-100p {
+	  width: 100%;
+	  height: 100%;
+	}
+	.md-s-fc {
+	  width: fit-content;
+	  height: fit-content;
+	}
+	
+	.md-t-0 { top: 0px; }
+	.md-l-0 { left: 0px; }
+	.md-b-0 { bottom: 0px; }
+	.md-r-0 { right: 0px; }
+	
+	.md-t-100p { top: 100%; }
+	.md-l-100p { left: 100%; }
+	.md-b-100p { bottom: 100%; }
+	.md-r-100p { right: 100%; }
+	
+	.md-ta-c { text-align: center; }
+	.md-ta-e { text-align: end; }
+	.md-ta-s { text-align: start; }
+	
+	.md-td-n { text-decoration: none; }
+	.md-td-u { text-decoration: underline; }
+	
+	.md-tt-c { text-transform: capitalize; }
+	.md-tt-u { text-transform: uppercase; }
+	.md-tt-l { text-transform: lowercase; }
+	.md-tt-n { text-transform: none; }
+	
+	.md-tof-e { text-overflow: ellipsis; }
+	.md-tof-c { text-overflow: clip; }
+	
+	.md-v-h { visibility: hidden; }
+	.md-v-v { visibility: visible; }
+	.md-v-c { visibility: collapse; }
+	
+	.md-w-0 { width: 0px; }
+	.md-w-fc { width: fit-content; }
+	.md-w-100p { width: 100%; }
+	
+	.md-ws-n { white-space: normal; }
+	.md-ws-nw { white-space: nowrap; }
+	.md-ws-p { white-space: pre; }
+	.md-ws-pl { white-space: pre-line; }
+	.md-ws-pw { white-space: pre-wrap; }
+	
+	.md-z-1 { z-index: 1; }
+}
