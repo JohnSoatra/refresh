@@ -38,13 +38,19 @@
 	.xl-bts-dt { border-top-style: dotted; }
 	.xl-bts-db { border-top-style: double; }
 	
+	.xl-bsh-n { box-shadow: none; }
+	
+	.xl-bsz-bb { box-sizing: border-box; }
+	.xl-bsz-cb { box-sizing: content-box; }
+	
 	.xl-cs-n { cursor: none; }
 	.xl-cs-d { cursor: default; }
 	.xl-cs-p { cursor: pointer; }
 	.xl-cs-t { cursor: text; }
 	
 	.xl-d-f { display: flex; }
-	.xl-d-i { display: inline; }
+	.xl-d-i { display: initial; }
+	.xl-d-in { display: inline; }
 	.xl-d-b { display: block; }
 	.xl-d-n { display: none; }
 	.xl-d-us { display: unset; }
@@ -122,10 +128,10 @@
 	.xl-pe-n { pointer-events: none; }
 	.xl-pe-u { pointer-events: unset; }
 	
-	.xl-ps-a { position: absolute; }
-	.xl-ps-f { position: fixed; }
-	.xl-ps-r { position: relative; }
-	.xl-ps-st { position: static; }
+	.xl-pos-a { position: absolute; }
+	.xl-pos-f { position: fixed; }
+	.xl-pos-r { position: relative; }
+	.xl-pos-st { position: static; }
 	.xl-pos-sk { position: sticky; }
 	
 	.xl-s-0 {

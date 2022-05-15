@@ -36,13 +36,19 @@
 .bts-dt { border-top-style: dotted; }
 .bts-db { border-top-style: double; }
 
+.bsh-n { box-shadow: none; }
+
+.bsz-bb { box-sizing: border-box; }
+.bsz-cb { box-sizing: content-box; }
+
 .cs-n { cursor: none; }
 .cs-d { cursor: default; }
 .cs-p { cursor: pointer; }
 .cs-t { cursor: text; }
 
 .d-f { display: flex; }
-.d-i { display: inline; }
+.d-i { display: initial; }
+.d-in { display: inline; }
 .d-b { display: block; }
 .d-n { display: none; }
 .d-us { display: unset; }
@@ -120,10 +126,10 @@
 .pe-n { pointer-events: none; }
 .pe-u { pointer-events: unset; }
 
-.ps-a { position: absolute; }
-.ps-f { position: fixed; }
-.ps-r { position: relative; }
-.ps-st { position: static; }
+.pos-a { position: absolute; }
+.pos-f { position: fixed; }
+.pos-r { position: relative; }
+.pos-st { position: static; }
 .pos-sk { position: sticky; }
 
 .s-0 {

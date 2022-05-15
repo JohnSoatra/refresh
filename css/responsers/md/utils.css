@@ -38,13 +38,19 @@
 	.md-bts-dt { border-top-style: dotted; }
 	.md-bts-db { border-top-style: double; }
 	
+	.md-bsh-n { box-shadow: none; }
+	
+	.md-bsz-bb { box-sizing: border-box; }
+	.md-bsz-cb { box-sizing: content-box; }
+	
 	.md-cs-n { cursor: none; }
 	.md-cs-d { cursor: default; }
 	.md-cs-p { cursor: pointer; }
 	.md-cs-t { cursor: text; }
 	
 	.md-d-f { display: flex; }
-	.md-d-i { display: inline; }
+	.md-d-i { display: initial; }
+	.md-d-in { display: inline; }
 	.md-d-b { display: block; }
 	.md-d-n { display: none; }
 	.md-d-us { display: unset; }
@@ -122,10 +128,10 @@
 	.md-pe-n { pointer-events: none; }
 	.md-pe-u { pointer-events: unset; }
 	
-	.md-ps-a { position: absolute; }
-	.md-ps-f { position: fixed; }
-	.md-ps-r { position: relative; }
-	.md-ps-st { position: static; }
+	.md-pos-a { position: absolute; }
+	.md-pos-f { position: fixed; }
+	.md-pos-r { position: relative; }
+	.md-pos-st { position: static; }
 	.md-pos-sk { position: sticky; }
 	
 	.md-s-0 {

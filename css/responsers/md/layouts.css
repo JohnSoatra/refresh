@@ -25,16 +25,6 @@
 	  .md-container { max-width: 1200px; }
 	}
 	
-	/* popup */
-	.md-popup {
-	  width: fit-content;
-	  position: absolute;
-	  top: 100%;
-	  left: 0px;
-	  z-index: 1;
-	  white-space: nowrap;
-	}
-	
 	/* flex */
 	.md-flex { display: flex; }
 	

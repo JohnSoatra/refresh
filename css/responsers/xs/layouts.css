@@ -25,16 +25,6 @@
 	  .xs-container { max-width: 1200px; }
 	}
 	
-	/* popup */
-	.xs-popup {
-	  width: fit-content;
-	  position: absolute;
-	  top: 100%;
-	  left: 0px;
-	  z-index: 1;
-	  white-space: nowrap;
-	}
-	
 	/* flex */
 	.xs-flex { display: flex; }
 	

@@ -1,5 +1,5 @@
 /* root */
-@import url(root.css);
+@import url(theme.css);
 
 /* layouts */
 @import url(layouts.css);
@@ -11,6 +11,9 @@
 
 /* animations */
 @import url(anims.css);
+
+/* transition */
+@import url(transitions.css);
 
 /* size percentage */
 @import url(sp.css);

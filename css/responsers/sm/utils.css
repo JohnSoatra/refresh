@@ -38,13 +38,19 @@
 	.sm-bts-dt { border-top-style: dotted; }
 	.sm-bts-db { border-top-style: double; }
 	
+	.sm-bsh-n { box-shadow: none; }
+	
+	.sm-bsz-bb { box-sizing: border-box; }
+	.sm-bsz-cb { box-sizing: content-box; }
+	
 	.sm-cs-n { cursor: none; }
 	.sm-cs-d { cursor: default; }
 	.sm-cs-p { cursor: pointer; }
 	.sm-cs-t { cursor: text; }
 	
 	.sm-d-f { display: flex; }
-	.sm-d-i { display: inline; }
+	.sm-d-i { display: initial; }
+	.sm-d-in { display: inline; }
 	.sm-d-b { display: block; }
 	.sm-d-n { display: none; }
 	.sm-d-us { display: unset; }
@@ -122,10 +128,10 @@
 	.sm-pe-n { pointer-events: none; }
 	.sm-pe-u { pointer-events: unset; }
 	
-	.sm-ps-a { position: absolute; }
-	.sm-ps-f { position: fixed; }
-	.sm-ps-r { position: relative; }
-	.sm-ps-st { position: static; }
+	.sm-pos-a { position: absolute; }
+	.sm-pos-f { position: fixed; }
+	.sm-pos-r { position: relative; }
+	.sm-pos-st { position: static; }
 	.sm-pos-sk { position: sticky; }
 	
 	.sm-s-0 {

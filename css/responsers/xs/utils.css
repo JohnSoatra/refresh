@@ -38,13 +38,19 @@
 	.xs-bts-dt { border-top-style: dotted; }
 	.xs-bts-db { border-top-style: double; }
 	
+	.xs-bsh-n { box-shadow: none; }
+	
+	.xs-bsz-bb { box-sizing: border-box; }
+	.xs-bsz-cb { box-sizing: content-box; }
+	
 	.xs-cs-n { cursor: none; }
 	.xs-cs-d { cursor: default; }
 	.xs-cs-p { cursor: pointer; }
 	.xs-cs-t { cursor: text; }
 	
 	.xs-d-f { display: flex; }
-	.xs-d-i { display: inline; }
+	.xs-d-i { display: initial; }
+	.xs-d-in { display: inline; }
 	.xs-d-b { display: block; }
 	.xs-d-n { display: none; }
 	.xs-d-us { display: unset; }
@@ -122,10 +128,10 @@
 	.xs-pe-n { pointer-events: none; }
 	.xs-pe-u { pointer-events: unset; }
 	
-	.xs-ps-a { position: absolute; }
-	.xs-ps-f { position: fixed; }
-	.xs-ps-r { position: relative; }
-	.xs-ps-st { position: static; }
+	.xs-pos-a { position: absolute; }
+	.xs-pos-f { position: fixed; }
+	.xs-pos-r { position: relative; }
+	.xs-pos-st { position: static; }
 	.xs-pos-sk { position: sticky; }
 	
 	.xs-s-0 {

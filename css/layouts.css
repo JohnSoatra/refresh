@@ -23,16 +23,6 @@
   .container { max-width: 1200px; }
 }
 
-/* popup */
-.popup {
-  width: fit-content;
-  position: absolute;
-  top: 100%;
-  left: 0px;
-  z-index: 1;
-  white-space: nowrap;
-}
-
 /* flex */
 .flex { display: flex; }
 

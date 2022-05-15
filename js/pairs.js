@@ -1,17 +1,3 @@
-const regHex = /^([0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/;
-const regPoint = /p[0-9]/;
-const regWs = /\s/g;
-const Width = "width";
-const Height = "height";
-const MinWidth = "min-width";
-const MinHeight = "min-height";
-const MaxWidth = "max-width";
-const MaxHeight = "max-height";
-const XS = 0;
-const SM = 480;
-const MD = 768;
-const LG = 1024;
-const XL = 1200;
 const excludePairs = [
     // fontsize
     "fs-16", "fs-17", "fs-18", "fs-19", "fs-20", "fs-21", "fs-22", "fs-23", "fs-24", "fs-25", "fs-26", "fs-27", "fs-28", "fs-29", "fs-30",
@@ -130,7 +116,17 @@ const excludePairs = [
     "aic-1", "aic-if", "adu-1000",
     "aic-1", "aic-if", "adu-1000",
     "aic-1", "aic-if", "adu-1000",
+
+    // box shadow
+    "bsh-n",
+
+    "xs-bsh-n",
+    "sm-bsh-n",
+    "md-bsh-n",
+    "lg-bsh-n",
+    "xl-bsh-n",
 ];
+
 const classPairsCss = {
     // aspect-ratio
     "aspr-": ["aspect-ratio", "/"],
@@ -185,6 +181,9 @@ const classPairsCss = {
     // font-size
     "fs-": ["font-size", "px"],
 
+    // font-family
+    "ff-": ["font-family", ""],
+
     // flex
     "f-": ["flex", ""],
     
@@ -234,111 +233,34 @@ const classPairsCss = {
     // grid
     "gtc-": ["grid-template-columns", "fr"],
     "gtr-": ["grid-template-rows", "fr"],
-};
 
-const classPairsDataTitle = {
-    // aspect-ratio
-    "dt-aspr-": ["aspect-ratio", "/"],
+    // transform
+    "tfr-": ["transform", "deg"],
+    "tfrx-": ["transform", "deg"],
+    "tfry-": ["transform", "deg"],
+    "tfrz-": ["transform", "deg"],
 
-    // size
-    "dt-w-": ["width", "px"],
-    "dt-h-": ["height", "px"],
-    "dt-s-": ["size", "px"],
-    "dt-gap-": ["gap", "px"],
-    "dt-cg-": ["column-gap", "px"],
-    "dt-rg-": ["row-gap", "px"],
+    "tfs-": ["transform", ""],
+    "tfsx-": ["transform", ""],
+    "tfsy-": ["transform", ""],
+    "tfsz-": ["transform", ""],
 
-    // position
-    "dt-t-": ["top", "px"],
-    "dt-b-": ["bottom", "px"],
-    "dt-l-": ["left", "px"],
-    "dt-r-": ["right", "px"],
+    "tft-": ["transform", "px"],
+    "tftx-": ["transform", "px"],
+    "tfty-": ["transform", "px"],
+    "tftz-": ["transform", "px"],
     
-    // backdrop-filter
-    "dt-bfb-": ["backdrop-filter", "px"],
+    // transition
+    "tsp-": ["transition-property", ""],
+    "tsdu-": ["transition-duration", "ms"],
+    "tsde": ["transition-delay", "ms"],
     
-    // border
-    "dt-bw-": ["border-width", "px"],
-    "dt-blw-": ["border-left-width", "px"],
-    "dt-brw-": ["border-right-width", "px"],
-    "dt-btw-": ["border-top-width", "px"],
-    "dt-bbw-": ["border-bottom-width", "px"],
-    
-    // border-radius
-    "dt-br-": ["border-radius", "px"],
-    "dt-btlr-": ["border-top-left-radius", "px"],
-    "dt-btrr-": ["border-top-right-radius", "px"],
-    "dt-bblr-": ["border-bottom-left-radius", "px"],
-    "dt-bbrr-": ["border-bottom-right-radius", "px"],
+    // filter
+    "fb-": ["filter", "px"],
+    "fbr-": ["filter", ""],
 
-    // border-color
-    "dt-bc-": ["border-color", "#"],
-    "dt-blc-": ["border-left-color", "#"],
-    "dt-brc-": ["border-right-color", "#"],
-    "dt-btc-": ["border-top-color", "#"],
-    "dt-bbc-": ["border-bottom-color", "#"],
-
-    // background-color
-    "dt-bgc-": ["background-color", "#"],
-
-    // color
-    "dt-c-": ["color", "#"],
-
-    //text-decorator-color
-    "dt-tdc-": ["text-decoration-color", "#"],
-
-    // font-size
-    "dt-fs-": ["font-size", "px"],
-
-    // flex
-    "dt-f-": ["flex", ""],
-    
-    // fill
-    "dt-fi-": ["fill", "#"],
-
-    // opacity
-    "dt-o-": ["opacity", "."],
-
-    // outline
-    "dt-ow-": ["outline-width", "px"],
-    "dt-oc-": ["outline-color", "#"],
-    "dt-oo-": ["outline-offset", "px"],
-    
-    // padding
-    "dt-p-": ["padding", "px"],
-    "dt-pl-": ["padding-left", "px"],
-    "dt-pr-": ["padding-right", "px"],
-    "dt-pt-": ["padding-top", "px"],
-    "dt-pb-": ["padding-bottom", "px"],
-    
-    // margin
-    "dt-m-": ["margin", "px"],
-    "dt-ml-": ["margin-left", "px"],
-    "dt-mr-": ["margin-right", "px"],
-    "dt-mt-": ["margin-top", "px"],
-    "dt-mb-": ["margin-bottom", "px"],
-
-    // min-width, min-height
-    "dt-mnw-": ["min-width", "px"],
-    "dt-mnh-": ["min-height", "px"],
-    "dt-mns-": ["", "px"],
-
-    // max-width, max-height
-    "dt-mxw-": ["max-width", "px"],
-    "dt-mxh-": ["max-height", "px"],
-    "dt-mxs-": ["", "px"],
-
-    // z-index
-    "dt-z-": ["z-index", ""],
-
-    // animation
-    "dt-adu-": ["animation-duration", "ms"],
-    "dt-ade-": ["animation-delay", "ms"],
-    "dt-aic": ["animation-iteration-count"],
-
-    // grid
-    "dt-gtc-": ["grid-template-columns", "fr"],
-    "dt-gtr-": ["grid-template-rows", "fr"],
+    // box-shadow
+    "bsh-": ["box-shadow", "px"],
 };
 
 const pairSize = {
@@ -396,6 +318,13 @@ const pairSize = {
     "lg-fs-": ["font-size", "px"],
     "xl-fs-": ["font-size", "px"],
 
+    // font-family
+    "xs-ff-": ["font-family", ""],
+    "sm-ff-": ["font-family", ""],
+    "md-ff-": ["font-family", ""],
+    "lg-ff-": ["font-family", ""],
+    "xl-ff-": ["font-family", ""],
+
     //flex
     "xs-f-": ["flex", ""],
     "sm-f-": ["flex", ""],
@@ -403,7 +332,7 @@ const pairSize = {
     "lg-f-": ["flex", ""],
     "xl-f-": ["flex", ""],
 
-    // outline-width, offset
+    // outline
     "xs-ow-": ["outline-width", "px"], "xs-oo-": ["outline-offset", "px"],
     "sm-ow-": ["outline-width", "px"], "sm-oo-": ["outline-offset", "px"],
     "md-ow-": ["outline-width", "px"], "md-oo-": ["outline-offset", "px"],
@@ -469,6 +398,35 @@ const pairSize = {
     "md-gtr-": ["grid-template-rows", "fr"],
     "lg-gtr-": ["grid-template-rows", "fr"],
     "xl-gtr-": ["grid-template-rows", "fr"],
+
+    /* transform
+       rotate */
+    "xs-tfr-": ["transform", "deg"], "xs-tfrx-": ["transform", "deg"], "xs-tfry-": ["transform", "deg"], "xs-tfrz-": ["transform", "deg"],
+    "sm-tfr-": ["transform", "deg"], "sm-tfrx-": ["transform", "deg"], "sm-tfry-": ["transform", "deg"], "sm-tfrz-": ["transform", "deg"],
+    "md-tfr-": ["transform", "deg"], "md-tfrx-": ["transform", "deg"], "md-tfry-": ["transform", "deg"], "md-tfrz-": ["transform", "deg"],
+    "lg-tfr-": ["transform", "deg"], "lg-tfrx-": ["transform", "deg"], "lg-tfry-": ["transform", "deg"], "lg-tfrz-": ["transform", "deg"],
+    "xl-tfr-": ["transform", "deg"], "xl-tfrx-": ["transform", "deg"], "xl-tfry-": ["transform", "deg"], "xl-tfrz-": ["transform", "deg"],
+
+    // scale
+    "xs-tfs-": ["transform", ""], "xs-tfsx-": ["transform", ""], "xs-tfsy-": ["transform", ""], "xs-tfsz-": ["transform", ""],
+    "sm-tfs-": ["transform", ""], "sm-tfsx-": ["transform", ""], "sm-tfsy-": ["transform", ""], "sm-tfsz-": ["transform", ""],
+    "md-tfs-": ["transform", ""], "md-tfsx-": ["transform", ""], "md-tfsy-": ["transform", ""], "md-tfsz-": ["transform", ""],
+    "lg-tfs-": ["transform", ""], "lg-tfsx-": ["transform", ""], "lg-tfsy-": ["transform", ""], "lg-tfsz-": ["transform", ""],
+    "xl-tfs-": ["transform", ""], "xl-tfsx-": ["transform", ""], "xl-tfsy-": ["transform", ""], "xl-tfsz-": ["transform", ""],
+
+    // translate
+    "xs-tft-": ["transform", "px"], "xs-tftx-": ["transform", "px"], "xs-tfty-": ["transform", "px"], "xs-tftz-": ["transform", "px"],
+    "sm-tft-": ["transform", "px"], "sm-tftx-": ["transform", "px"], "sm-tfty-": ["transform", "px"], "sm-tftz-": ["transform", "px"],
+    "md-tft-": ["transform", "px"], "md-tftx-": ["transform", "px"], "md-tfty-": ["transform", "px"], "md-tftz-": ["transform", "px"],
+    "lg-tft-": ["transform", "px"], "lg-tftx-": ["transform", "px"], "lg-tfty-": ["transform", "px"], "lg-tftz-": ["transform", "px"],
+    "xl-tft-": ["transform", "px"], "xl-tftx-": ["transform", "px"], "xl-tfty-": ["transform", "px"], "xl-tftz-": ["transform", "px"],
+
+    // box-shadow
+    "xs-bsh-": ["box-shadow", "px"],
+    "sm-bsh-": ["box-shadow", "px"],
+    "md-bsh-": ["box-shadow", "px"],
+    "lg-bsh-": ["box-shadow", "px"],
+    "xl-bsh-": ["box-shadow", "px"],
 };
 
 const pairSizeDown = {
@@ -526,6 +484,13 @@ const pairSizeDown = {
     "d-lg-fs-": ["font-size", "px"],
     "d-xl-fs-": ["font-size", "px"],
 
+    // font-family
+    "d-xs-ff-": ["font-family", ""],
+    "d-sm-ff-": ["font-family", ""],
+    "d-md-ff-": ["font-family", ""],
+    "d-lg-ff-": ["font-family", ""],
+    "d-xl-ff-": ["font-family", ""],
+
     //flex
     "d-xs-f-": ["flex", ""],
     "d-sm-f-": ["flex", ""],
@@ -533,7 +498,7 @@ const pairSizeDown = {
     "d-lg-f-": ["flex", ""],
     "d-xl-f-": ["flex", ""],
 
-    // outline-width, offset
+    // outline
     "d-xs-ow-": ["outline-width", "px"], "d-xs-oo-": ["outline-offset", "px"],
     "d-sm-ow-": ["outline-width", "px"], "d-sm-oo-": ["outline-offset", "px"],
     "d-md-ow-": ["outline-width", "px"], "d-md-oo-": ["outline-offset", "px"],
@@ -599,48 +564,55 @@ const pairSizeDown = {
     "d-md-gtr-": ["grid-template-rows", "fr"],
     "d-lg-gtr-": ["grid-template-rows", "fr"],
     "d-xl-gtr-": ["grid-template-rows", "fr"],
+
+    /* transform
+       rotate */
+    "d-xs-tfr-": ["transform", "deg"],  "d-xs-tfrx-": ["transform", "deg"], "d-xs-tfry-": ["transform", "deg"], "d-xs-tfrz-": ["transform", "deg"],
+    "d-sm-tfr-": ["transform", "deg"], "d-sm-tfrx-": ["transform", "deg"], "d-sm-tfry-": ["transform", "deg"], "d-sm-tfrz-": ["transform", "deg"],
+    "d-md-tfr-": ["transform", "deg"], "d-md-tfrx-": ["transform", "deg"], "d-md-tfry-": ["transform", "deg"], "d-md-tfrz-": ["transform", "deg"],
+    "d-lg-tfr-": ["transform", "deg"], "d-lg-tfrx-": ["transform", "deg"], "d-lg-tfry-": ["transform", "deg"], "d-lg-tfrz-": ["transform", "deg"],
+    "d-xl-tfr-": ["transform", "deg"], "d-xl-tfrx-": ["transform", "deg"], "d-xl-tfry-": ["transform", "deg"], "d-xl-tfrz-": ["transform", "deg"],
+
+    // scale
+    "d-xs-tfs-": ["transform", ""], "d-xs-tfsx-": ["transform", ""], "d-xs-tfsy-": ["transform", ""], "d-xs-tfsz-": ["transform", ""],
+    "d-sm-tfs-": ["transform", ""], "d-sm-tfsx-": ["transform", ""], "d-sm-tfsy-": ["transform", ""], "d-sm-tfsz-": ["transform", ""],
+    "d-md-tfs-": ["transform", ""], "d-md-tfsx-": ["transform", ""], "d-md-tfsy-": ["transform", ""], "d-md-tfsz-": ["transform", ""],
+    "d-lg-tfs-": ["transform", ""], "d-lg-tfsx-": ["transform", ""], "d-lg-tfsy-": ["transform", ""], "d-lg-tfsz-": ["transform", ""],
+    "d-xl-tfs-": ["transform", ""], "d-xl-tfsx-": ["transform", ""], "d-xl-tfsy-": ["transform", ""], "d-xl-tfsz-": ["transform", ""],
+
+    // translate
+    "d-xs-tft-": ["transform", "px"], "d-xs-tftx-": ["transform", "px"], "d-xs-tfty-": ["transform", "px"], "d-xs-tftz-": ["transform", "px"],
+    "d-sm-tft-": ["transform", "px"], "d-sm-tftx-": ["transform", "px"], "d-sm-tfty-": ["transform", "px"], "d-sm-tftz-": ["transform", "px"],
+    "d-md-tft-": ["transform", "px"], "d-md-tftx-": ["transform", "px"], "d-md-tfty-": ["transform", "px"], "d-md-tftz-": ["transform", "px"],
+    "d-lg-tft-": ["transform", "px"], "d-lg-tftx-": ["transform", "px"], "d-lg-tfty-": ["transform", "px"], "d-lg-tftz-": ["transform", "px"],
+    "d-xl-tft-": ["transform", "px"], "d-xl-tftx-": ["transform", "px"], "d-xl-tfty-": ["transform", "px"], "d-xl-tftz-": ["transform", "px"],
+
+    // box-shadow
+    "d-xs-bsh-": ["box-shadow", "px"], 
+    "d-sm-bsh-": ["box-shadow", "px"],
+    "d-md-bsh-": ["box-shadow", "px"],
+    "d-lg-bsh-": ["box-shadow", "px"],
+    "d-xl-bsh-": ["box-shadow", "px"],
 };
 
+const pairTran = {
+    "fade": classPairsCss["o-"],
+    "pop": classPairsCss["tfs-"],
+    "slide": classPairsCss["tft-"]
+}
+
 export default {
-    Width,
-    Height,
-    MinWidth,
-    MinHeight,
-    MaxWidth,
-    MaxHeight,
+    excludePairs,
     classPairsCss,
-    classPairsDataTitle,
     pairSize,
     pairSizeDown,
-    regHex,
-    regPoint,
-    regWs,
-    excludePairs,
-    XS,
-    SM,
-    MD,
-    LG,
-    XL,
+    pairTran
 }
 
 export {
-    Width,
-    Height,
-    MinWidth,
-    MinHeight,
-    MaxWidth,
-    MaxHeight,
+    excludePairs,
     classPairsCss,
-    classPairsDataTitle,
     pairSize,
     pairSizeDown,
-    regHex,
-    regPoint,
-    regWs,
-    excludePairs,
-    XS,
-    SM,
-    MD,
-    LG,
-    XL,
+    pairTran
 }

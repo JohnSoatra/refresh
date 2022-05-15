@@ -38,13 +38,19 @@
 	.lg-bts-dt { border-top-style: dotted; }
 	.lg-bts-db { border-top-style: double; }
 	
+	.lg-bsh-n { box-shadow: none; }
+	
+	.lg-bsz-bb { box-sizing: border-box; }
+	.lg-bsz-cb { box-sizing: content-box; }
+	
 	.lg-cs-n { cursor: none; }
 	.lg-cs-d { cursor: default; }
 	.lg-cs-p { cursor: pointer; }
 	.lg-cs-t { cursor: text; }
 	
 	.lg-d-f { display: flex; }
-	.lg-d-i { display: inline; }
+	.lg-d-i { display: initial; }
+	.lg-d-in { display: inline; }
 	.lg-d-b { display: block; }
 	.lg-d-n { display: none; }
 	.lg-d-us { display: unset; }
@@ -122,10 +128,10 @@
 	.lg-pe-n { pointer-events: none; }
 	.lg-pe-u { pointer-events: unset; }
 	
-	.lg-ps-a { position: absolute; }
-	.lg-ps-f { position: fixed; }
-	.lg-ps-r { position: relative; }
-	.lg-ps-st { position: static; }
+	.lg-pos-a { position: absolute; }
+	.lg-pos-f { position: fixed; }
+	.lg-pos-r { position: relative; }
+	.lg-pos-st { position: static; }
 	.lg-pos-sk { position: sticky; }
 	
 	.lg-s-0 {

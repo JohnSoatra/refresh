@@ -1,0 +1,51 @@
+:root {
+  /* default color */
+  --d4: #404040;
+  --d5: #505050;
+  --b5: #b5b5b5;
+  --primary: #0e84f9;
+  --divider: rgb(109, 109, 109);
+
+  /* element color */
+  --border-color: var(--b5);
+  --outline-color: var(--b5);
+  
+  /* font family */
+  --ff: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --ff-kh: "nokora", "hanuman", "content";
+
+  /* body */
+  --body-font-family: var(--ff);
+  --body-text-color: var(--d4);
+
+  /* button */
+  --button-text-color: var(--d4);
+  --button-background-color: #fbfbfb;
+  --button-outline-color: var(--b5);
+  --button-outline-focus-color: var(--primary);
+  --button-box-shadow-color: #5f5f5f58;
+  --button-box-shadow-active-color: #4e4e4e58;
+
+  /* input text-area */
+  --input-text-color: var(--d4);
+  --input-caret-color: #777;
+  --input-outline-color: rgba(168, 168, 168, 0.555);
+  --input-outline-focus-color: var(--primary);
+  --input-box-shadow-color: #6e6e6e58;
+  --input-box-shadow-active-color: #4e4e4e58;
+
+  /* title */
+  --title-outline-color: var(--b5);
+  --title-text-color: var(--d4);
+  --title-background-color: white;
+  --title-box-shadow-color: #5f5f5f33;
+
+  /* popup */
+  --popup-outline-color: var(--b5);
+  --popup-text-color: var(--d4);
+  --popup-background-color: white;
+  --popup-box-shadow-color: #5f5f5f33;
+
+  /* dimen */
+  --border-radius: 0px;
+}
