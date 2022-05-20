@@ -1,0 +1,223 @@
+/* Large */
+@media only screen and (min-width: 1024px) {
+	/* wrapper */
+	.lg-wrapper {
+	  width: 100%;
+	  display: flex;
+	  flex-direction: row;
+	  flex-wrap: wrap;
+	}
+	
+	/* container */
+	.lg-container {
+	  margin: 0px auto;
+	  height: 100%;
+	}
+	
+	@media only screen and (min-width: 0px) {
+	  .lg-container { width: 95%; }
+	}
+	@media only screen and (min-width: 480px) {
+	  .lg-container { width: 85%; }
+	}
+	@media only screen and (min-width: 768px) {
+	  .lg-container { width: 75%; }
+	}
+	@media only screen and (min-width: 1024px) {
+	  .lg-container { width: 70%; }
+	}
+	@media only screen and (min-width: 1200px) {
+	  .lg-container { max-width: 1200px; }
+	}
+	
+	/* flex */
+	.lg-flex { display: flex; }
+	
+	.lg-fd-r { flex-direction: row; }
+	.lg-fd-c { flex-direction: column; }
+	
+	.lg-jc-s { justify-content: start; }
+	.lg-jc-e { justify-content: flex-end; }
+	.lg-jc-c { justify-content: center; }
+	
+	.lg-jc-sb { justify-content: space-between; }
+	.lg-jc-sa { justify-content: space-around; }
+	.lg-jc-se { justify-content: space-evenly; }
+	
+	.lg-ai-fs { align-items: flex-start; }
+	.lg-ai-fe { align-items: flex-end; }
+	.lg-ai-c { align-items: center; }
+	.lg-ai-st { align-items: stretch; }
+	
+	.lg-as-fs { align-self: flex-start; }
+	.lg-as-fe { align-self: flex-end; }
+	.lg-as-c { align-self: center; }
+	.lg-as-st { align-self: stretch; }
+	
+	/* box */
+	.lg-box { position: relative; }
+	
+	.lg-to-tl {
+	  position: absolute;
+	  top: 0px;
+	  left: 0px;
+	}
+	.lg-to-tr {
+	  position: absolute;
+	  top: 0px;
+	  right: 0px;
+	}
+	.lg-to-tc {
+	  position: absolute;
+	  top: 0px;
+	  left: 50%;
+	  transform: translate(-50%, 0px);
+	}
+	.lg-to-bl {
+	  position: absolute;
+	  bottom: 0px;
+	  left: 0px;
+	}
+	.lg-to-br {
+	  position: absolute;
+	  bottom: 0px;
+	  right: 0px;
+	}
+	.lg-to-bc {
+	  position: absolute;
+	  bottom: 0px;
+	  left: 50%;
+	  transform: translate(-50%, 0px);
+	}
+	.lg-to-lc {
+	  position: absolute;
+	  top: 50%;
+	  left: 0px;
+	  transform: translate(0px, -50%);
+	}
+	.lg-to-rc {
+	  position: absolute;
+	  top: 50%;
+	  right: 0px;
+	  transform: translate(0px, -50%);
+	}
+	.lg-to-c {
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	}
+	
+	/* grid */
+	.lg-grid { display: grid; }
+	
+	.lg-gtc-1 { grid-template-columns: auto; }
+	.lg-gtc-2 { grid-template-columns: auto auto; }
+	.lg-gtc-3 { grid-template-columns: auto auto auto; }
+	.lg-gtc-4 { grid-template-columns: auto auto auto auto; }
+	.lg-gtc-5 { grid-template-columns: auto auto auto auto auto; }
+	.lg-gtc-6 { grid-template-columns: auto auto auto auto auto auto; }
+	.lg-gtc-7 { grid-template-columns: auto auto auto auto auto auto auto; }
+	.lg-gtc-8 { grid-template-columns: auto auto auto auto auto auto auto auto; }
+	.lg-gtc-9 { grid-template-columns: auto auto auto auto auto auto auto auto auto; }
+	.lg-gtc-10 { grid-template-columns: auto auto auto auto auto auto auto auto auto auto; }
+	.lg-gtc-11 { grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto; }
+	.lg-gtc-12 { grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto; }
+	
+	.lg-gtr-1 { grid-template-rows: auto; }
+	.lg-gtr-2 { grid-template-rows: auto auto; }
+	.lg-gtr-3 { grid-template-rows: auto auto auto; }
+	.lg-gtr-4 { grid-template-rows: auto auto auto auto; }
+	.lg-gtr-5 { grid-template-rows: auto auto auto auto auto; }
+	.lg-gtr-6 { grid-template-rows: auto auto auto auto auto auto; }
+	.lg-gtr-7 { grid-template-rows: auto auto auto auto auto auto auto; }
+	.lg-gtr-8 { grid-template-rows: auto auto auto auto auto auto auto auto; }
+	.lg-gtr-9 { grid-template-rows: auto auto auto auto auto auto auto auto auto; }
+	.lg-gtr-10 { grid-template-rows: auto auto auto auto auto auto auto auto auto auto; }
+	.lg-gtr-11 { grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto; }
+	.lg-gtr-12 { grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto auto; }
+	
+	.lg-gcs-a { grid-column-start: auto; }
+	.lg-gcs-1 { grid-column-start: 1; }
+	.lg-gcs-2 { grid-column-start: 2; }
+	.lg-gcs-3 { grid-column-start: 3; }
+	.lg-gcs-4 { grid-column-start: 4; }
+	.lg-gcs-5 { grid-column-start: 5; }
+	.lg-gcs-6 { grid-column-start: 6; }
+	.lg-gcs-7 { grid-column-start: 7; }
+	.lg-gcs-8 { grid-column-start: 8; }
+	.lg-gcs-9 { grid-column-start: 9; }
+	.lg-gcs-10 { grid-column-start: 10; }
+	.lg-gcs-11 { grid-column-start: 11; }
+	.lg-gcs-12 { grid-column-start: 12; }
+	
+	.lg-gce-a { grid-column-end: auto; }
+	.lg-gce-1 { grid-column-end: 1; }
+	.lg-gce-2 { grid-column-end: 2; }
+	.lg-gce-3 { grid-column-end: 3; }
+	.lg-gce-4 { grid-column-end: 4; }
+	.lg-gce-5 { grid-column-end: 5; }
+	.lg-gce-6 { grid-column-end: 6; }
+	.lg-gce-7 { grid-column-end: 7; }
+	.lg-gce-8 { grid-column-end: 8; }
+	.lg-gce-9 { grid-column-end: 9; }
+	.lg-gce-10 { grid-column-end: 10; }
+	.lg-gce-11 { grid-column-end: 11; }
+	.lg-gce-12 { grid-column-end: 12; }
+	
+	.lg-gces-a { grid-column-end: span auto; }
+	.lg-gces-1 { grid-column-end: span 1; }
+	.lg-gces-2 { grid-column-end: span 2; }
+	.lg-gces-3 { grid-column-end: span 3; }
+	.lg-gces-4 { grid-column-end: span 4; }
+	.lg-gces-5 { grid-column-end: span 5; }
+	.lg-gces-6 { grid-column-end: span 6; }
+	.lg-gces-7 { grid-column-end: span 7; }
+	.lg-gces-8 { grid-column-end: span 8; }
+	.lg-gces-9 { grid-column-end: span 9; }
+	.lg-gces-10 { grid-column-end: span 10; }
+	.lg-gces-11 { grid-column-end: span 11; }
+	.lg-gces-12 { grid-column-end: span 12; }
+	
+	.lg-grs-a { grid-row-start: auto; }
+	.lg-grs-1 { grid-row-start: 1; }
+	.lg-grs-2 { grid-row-start: 2; }
+	.lg-grs-3 { grid-row-start: 3; }
+	.lg-grs-4 { grid-row-start: 4; }
+	.lg-grs-5 { grid-row-start: 5; }
+	.lg-grs-6 { grid-row-start: 6; }
+	.lg-grs-7 { grid-row-start: 7; }
+	.lg-grs-8 { grid-row-start: 8; }
+	.lg-grs-9 { grid-row-start: 9; }
+	.lg-grs-10 { grid-row-start: 10; }
+	.lg-grs-11 { grid-row-start: 11; }
+	.lg-grs-12 { grid-row-start: 12; }
+	
+	.lg-gre-a { grid-row-end: auto; }
+	.lg-gre-1 { grid-row-end: 1; }
+	.lg-gre-2 { grid-row-end: 2; }
+	.lg-gre-3 { grid-row-end: 3; }
+	.lg-gre-4 { grid-row-end: 4; }
+	.lg-gre-5 { grid-row-end: 5; }
+	.lg-gre-6 { grid-row-end: 6; }
+	.lg-gre-7 { grid-row-end: 7; }
+	.lg-gre-8 { grid-row-end: 8; }
+	.lg-gre-9 { grid-row-end: 9; }
+	.lg-gre-10 { grid-row-end: 10; }
+	.lg-gre-11 { grid-row-end: 11; }
+	.lg-gre-12 { grid-row-end: 12; }
+	
+	.lg-gres-a { grid-row-end: span auto; }
+	.lg-gres-1 { grid-row-end: span 1; }
+	.lg-gres-2 { grid-row-end: span 2; }
+	.lg-gres-3 { grid-row-end: span 3; }
+	.lg-gres-4 { grid-row-end: span 4; }
+	.lg-gres-5 { grid-row-end: span 5; }
+	.lg-gres-6 { grid-row-end: span 6; }
+	.lg-gres-7 { grid-row-end: span 7; }
+	.lg-gres-8 { grid-row-end: span 8; }
+	.lg-gres-9 { grid-row-end: span 9; }
+	.lg-gres-10 { grid-row-end: span 10; }
+	.lg-gres-11 { grid-row-end: span 11; }
+	.lg-gres-12 { grid-row-end: span 12; }
+}

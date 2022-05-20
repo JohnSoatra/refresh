@@ -1,4 +1,4 @@
-const excludePairs = [
+const pairExclude = [
     // fontsize
     "fs-16", "fs-17", "fs-18", "fs-19", "fs-20", "fs-21", "fs-22", "fs-23", "fs-24", "fs-25", "fs-26", "fs-27", "fs-28", "fs-29", "fs-30",
     
@@ -7,6 +7,11 @@ const excludePairs = [
     "md-fs-16", "md-fs-17", "md-fs-18", "md-fs-19", "md-fs-20", "md-fs-21", "md-fs-22", "md-fs-23", "md-fs-24", "md-fs-25", "md-fs-26", "md-fs-27", "md-fs-28", "md-fs-29", "md-fs-30",
     "lg-fs-16", "lg-fs-17", "lg-fs-18", "lg-fs-19", "lg-fs-20", "lg-fs-21", "lg-fs-22", "lg-fs-23", "lg-fs-24", "lg-fs-25", "lg-fs-26", "lg-fs-27", "lg-fs-28", "lg-fs-29", "lg-fs-30",
     "xl-fs-16", "xl-fs-17", "xl-fs-18", "xl-fs-19", "xl-fs-20", "xl-fs-21", "xl-fs-22", "xl-fs-23", "xl-fs-24", "xl-fs-25", "xl-fs-26", "xl-fs-27", "xl-fs-28", "xl-fs-29", "xl-fs-30",
+
+    "d-sm-fs-16", "d-sm-fs-17", "d-sm-fs-18", "d-sm-fs-19", "d-sm-fs-20", "d-sm-fs-21", "d-sm-fs-22", "d-sm-fs-23", "d-sm-fs-24", "d-sm-fs-25", "d-sm-fs-26", "d-sm-fs-27", "d-sm-fs-28", "d-sm-fs-29", "d-sm-fs-30",
+    "d-md-fs-16", "d-md-fs-17", "d-md-fs-18", "d-md-fs-19", "d-md-fs-20", "d-md-fs-21", "d-md-fs-22", "d-md-fs-23", "d-md-fs-24", "d-md-fs-25", "d-md-fs-26", "d-md-fs-27", "d-md-fs-28", "d-md-fs-29", "d-md-fs-30",
+    "d-lg-fs-16", "d-lg-fs-17", "d-lg-fs-18", "d-lg-fs-19", "d-lg-fs-20", "d-lg-fs-21", "d-lg-fs-22", "d-lg-fs-23", "d-lg-fs-24", "d-lg-fs-25", "d-lg-fs-26", "d-lg-fs-27", "d-lg-fs-28", "d-lg-fs-29", "d-lg-fs-30",
+    "d-xl-fs-16", "d-xl-fs-17", "d-xl-fs-18", "d-xl-fs-19", "d-xl-fs-20", "d-xl-fs-21", "d-xl-fs-22", "d-xl-fs-23", "d-xl-fs-24", "d-xl-fs-25", "d-xl-fs-26", "d-xl-fs-27", "d-xl-fs-28", "d-xl-fs-29", "d-xl-fs-30",
 
     // aspect-ratio
     "aspr-1",
@@ -17,6 +22,11 @@ const excludePairs = [
     "md-aspr-1", "md-aspr-1x1",
     "lg-aspr-1", "lg-aspr-1x1",
     "xl-aspr-1", "xl-aspr-1x1",
+
+    "d-sm-aspr-1", "d-sm-aspr-1x1",
+    "d-md-aspr-1", "d-md-aspr-1x1",
+    "d-lg-aspr-1", "d-lg-aspr-1x1",
+    "d-xl-aspr-1", "d-xl-aspr-1x1",
     
     // flex
     "f-1", 
@@ -26,15 +36,14 @@ const excludePairs = [
     "md-f-1",
     "lg-f-1",
     "xl-f-1",
+    
+    "d-sm-f-1",
+    "d-md-f-1",
+    "d-lg-f-1",
+    "d-xl-f-1",
 
     // z-index
     "z-1",
-    
-    "xs-z-1",
-    "sm-z-1",
-    "md-z-1",
-    "lg-z-1",
-    "xl-z-1",
 
     // size
     "w-0", "w-100p", "w-fc",
@@ -44,18 +53,38 @@ const excludePairs = [
     "xs-w-0", "xs-w-100p", "xs-w-fc",
     "xs-h-0", "xs-h-100p", "xs-h-fc",
     "xs-s-0", "xs-s-100p", "xs-s-fc",
+
     "sm-w-0", "sm-w-100p", "sm-w-fc",
     "sm-h-0", "sm-h-100p", "sm-h-fc",
     "sm-s-0", "sm-s-100p", "sm-s-fc",
+
     "md-w-0", "md-w-100p", "md-w-fc",
     "md-h-0", "md-h-100p", "md-h-fc",
     "md-s-0", "md-s-100p", "md-s-fc",
+
     "lg-w-0", "lg-w-100p", "lg-w-fc",
     "lg-h-0", "lg-h-100p", "lg-h-fc",
     "lg-s-0", "lg-s-100p", "lg-s-fc",
+
     "xl-w-0", "xl-w-100p", "xl-w-fc",
     "xl-h-0", "xl-h-100p", "xl-h-fc",
     "xl-s-0", "xl-s-100p", "xl-s-fc",
+
+    "d-sm-w-0", "sm-w-100p", "sm-w-fc",
+    "d-sm-h-0", "sm-h-100p", "sm-h-fc",
+    "d-sm-s-0", "sm-s-100p", "sm-s-fc",
+
+    "d-md-w-0", "md-w-100p", "md-w-fc",
+    "d-md-h-0", "md-h-100p", "md-h-fc",
+    "d-md-s-0", "md-s-100p", "md-s-fc",
+
+    "d-lg-w-0", "lg-w-100p", "lg-w-fc",
+    "d-lg-h-0", "lg-h-100p", "lg-h-fc",
+    "d-lg-s-0", "lg-s-100p", "lg-s-fc",
+
+    "d-xl-w-0", "xl-w-100p", "xl-w-fc",
+    "d-xl-h-0", "xl-h-100p", "xl-h-fc",
+    "d-xl-s-0", "xl-s-100p", "xl-s-fc",
     
     // min-size, max-size
     "mxw-0", "mxw-100p", "mxw-fc", "mnw-0", "mnw-100p", "mnw-fc",
@@ -65,18 +94,38 @@ const excludePairs = [
     "xs-mxw-0", "xs-mxw-100p", "xs-mxw-fc", "xs-mnw-0", "xs-mnw-100p", "xs-mnw-fc",
     "xs-mxh-0", "xs-mxh-100p", "xs-mxh-fc", "xs-mnh-0", "xs-mnh-100p", "xs-mnh-fc",
     "xs-mxs-0", "xs-mxs-100p", "xs-mxs-fc", "xs-mns-0", "xs-mns-100p", "xs-mns-fc",
+    
     "sm-mxw-0", "sm-mxw-100p", "sm-mxw-fc", "sm-mnw-0", "sm-mnw-100p", "sm-mnw-fc",
     "sm-mxh-0", "sm-mxh-100p", "sm-mxh-fc", "sm-mnh-0", "sm-mnh-100p", "sm-mnh-fc",
     "sm-mxs-0", "sm-mxs-100p", "sm-mxs-fc", "sm-mns-0", "sm-mns-100p", "sm-mns-fc",
+    
     "md-mxw-0", "md-mxw-100p", "md-mxw-fc", "md-mnw-0", "md-mnw-100p", "md-mnw-fc",
     "md-mxh-0", "md-mxh-100p", "md-mxh-fc", "md-mnh-0", "md-mnh-100p", "md-mnh-fc",
     "md-mxs-0", "md-mxs-100p", "md-mxs-fc", "md-mns-0", "md-mns-100p", "md-mns-fc",
+    
     "lg-mxw-0", "lg-mxw-100p", "lg-mxw-fc", "lg-mnw-0", "lg-mnw-100p", "lg-mnw-fc",
     "lg-mxh-0", "lg-mxh-100p", "lg-mxh-fc", "lg-mnh-0", "lg-mnh-100p", "lg-mnh-fc",
     "lg-mxs-0", "lg-mxs-100p", "lg-mxs-fc", "lg-mns-0", "lg-mns-100p", "lg-mns-fc",
+    
     "xl-mxw-0", "xl-mxw-100p", "xl-mxw-fc", "xl-mnw-0", "xl-mnw-100p", "xl-mnw-fc",
     "xl-mxh-0", "xl-mxh-100p", "xl-mxh-fc", "xl-mnh-0", "xl-mnh-100p", "xl-mnh-fc",
     "xl-mxs-0", "xl-mxs-100p", "xl-mxs-fc", "xl-mns-0", "xl-mns-100p", "xl-mns-fc",
+
+    "d-sm-mxw-0", "d-sm-mxw-100p", "d-sm-mxw-fc", "d-sm-mnw-0", "d-sm-mnw-100p", "d-sm-mnw-fc",
+    "d-sm-mxh-0", "d-sm-mxh-100p", "d-sm-mxh-fc", "d-sm-mnh-0", "d-sm-mnh-100p", "d-sm-mnh-fc",
+    "d-sm-mxs-0", "d-sm-mxs-100p", "d-sm-mxs-fc", "d-sm-mns-0", "d-sm-mns-100p", "d-sm-mns-fc",
+    
+    "d-md-mxw-0", "d-md-mxw-100p", "d-md-mxw-fc", "d-md-mnw-0", "d-md-mnw-100p", "d-md-mnw-fc",
+    "d-md-mxh-0", "d-md-mxh-100p", "d-md-mxh-fc", "d-md-mnh-0", "d-md-mnh-100p", "d-md-mnh-fc",
+    "d-md-mxs-0", "d-md-mxs-100p", "d-md-mxs-fc", "d-md-mns-0", "d-md-mns-100p", "d-md-mns-fc",
+    
+    "d-lg-mxw-0", "d-lg-mxw-100p", "d-lg-mxw-fc", "d-lg-mnw-0", "d-lg-mnw-100p", "d-lg-mnw-fc",
+    "d-lg-mxh-0", "d-lg-mxh-100p", "d-lg-mxh-fc", "d-lg-mnh-0", "d-lg-mnh-100p", "d-lg-mnh-fc",
+    "d-lg-mxs-0", "d-lg-mxs-100p", "d-lg-mxs-fc", "d-lg-mns-0", "d-lg-mns-100p", "d-lg-mns-fc",
+    
+    "d-xl-mxw-0", "d-xl-mxw-100p", "d-xl-mxw-fc", "d-xl-mnw-0", "d-xl-mnw-100p", "d-xl-mnw-fc",
+    "d-xl-mxh-0", "d-xl-mxh-100p", "d-xl-mxh-fc", "d-xl-mnh-0", "d-xl-mnh-100p", "d-xl-mnh-fc",
+    "d-xl-mxs-0", "d-xl-mxs-100p", "d-xl-mxs-fc", "d-xl-mns-0", "d-xl-mns-100p", "d-xl-mns-fc",
 
     // grid
     "gtc-1", "gtc-2", "gtc-3", "gtc-4", "gtc-5", "gtc-6", "gtc-7", "gtc-8", "gtc-9", "gtc-10", "gtc-11", "gtc-12",
@@ -84,14 +133,30 @@ const excludePairs = [
     
     "xs-gtc-1", "xs-gtc-2", "xs-gtc-3", "xs-gtc-4", "xs-gtc-5", "xs-gtc-6", "xs-gtc-7", "xs-gtc-8", "xs-gtc-9", "xs-gtc-10", "xs-gtc-11", "xs-gtc-12",
     "xs-gtr-1", "xs-gtr-2", "xs-gtr-3", "xs-gtr-4", "xs-gtr-5", "xs-gtr-6", "xs-gtr-7", "xs-gtr-8", "xs-gtr-9", "xs-gtr-10", "xs-gtr-11", "xs-gtr-12",
+    
     "sm-gtc-1", "sm-gtc-2", "sm-gtc-3", "sm-gtc-4", "sm-gtc-5", "sm-gtc-6", "sm-gtc-7", "sm-gtc-8", "sm-gtc-9", "sm-gtc-10", "sm-gtc-11", "sm-gtc-12",
     "sm-gtr-1", "sm-gtr-2", "sm-gtr-3", "sm-gtr-4", "sm-gtr-5", "sm-gtr-6", "sm-gtr-7", "sm-gtr-8", "sm-gtr-9", "sm-gtr-10", "sm-gtr-11", "sm-gtr-12",
+    
     "md-gtc-1", "md-gtc-2", "md-gtc-3", "md-gtc-4", "md-gtc-5", "md-gtc-6", "md-gtc-7", "md-gtc-8", "md-gtc-9", "md-gtc-10", "md-gtc-11", "md-gtc-12",
     "md-gtr-1", "md-gtr-2", "md-gtr-3", "md-gtr-4", "md-gtr-5", "md-gtr-6", "md-gtr-7", "md-gtr-8", "md-gtr-9", "md-gtr-10", "md-gtr-11", "md-gtr-12",
+    
     "lg-gtc-1", "lg-gtc-2", "lg-gtc-3", "lg-gtc-4", "lg-gtc-5", "lg-gtc-6", "lg-gtc-7", "lg-gtc-8", "lg-gtc-9", "lg-gtc-10", "lg-gtc-11", "lg-gtc-12",
     "lg-gtr-1", "lg-gtr-2", "lg-gtr-3", "lg-gtr-4", "lg-gtr-5", "lg-gtr-6", "lg-gtr-7", "lg-gtr-8", "lg-gtr-9", "lg-gtr-10", "lg-gtr-11", "lg-gtr-12",
+    
     "xl-gtc-1", "xl-gtc-2", "xl-gtc-3", "xl-gtc-4", "xl-gtc-5", "xl-gtc-6", "xl-gtc-7", "xl-gtc-8", "xl-gtc-9", "xl-gtc-10", "xl-gtc-11", "xl-gtc-12",
     "xl-gtr-1", "xl-gtr-2", "xl-gtr-3", "xl-gtr-4", "xl-gtr-5", "xl-gtr-6", "xl-gtr-7", "xl-gtr-8", "xl-gtr-9", "xl-gtr-10", "xl-gtr-11", "xl-gtr-12",
+
+    "d-sm-gtc-1", "d-sm-gtc-2", "d-sm-gtc-3", "d-sm-gtc-4", "d-sm-gtc-5", "d-sm-gtc-6", "d-sm-gtc-7", "d-sm-gtc-8", "d-sm-gtc-9", "d-sm-gtc-10", "d-sm-gtc-11", "d-sm-gtc-12",
+    "d-sm-gtr-1", "d-sm-gtr-2", "d-sm-gtr-3", "d-sm-gtr-4", "d-sm-gtr-5", "d-sm-gtr-6", "d-sm-gtr-7", "d-sm-gtr-8", "d-sm-gtr-9", "d-sm-gtr-10", "d-sm-gtr-11", "d-sm-gtr-12",
+    
+    "d-md-gtc-1", "d-md-gtc-2", "d-md-gtc-3", "d-md-gtc-4", "d-md-gtc-5", "d-md-gtc-6", "d-md-gtc-7", "d-md-gtc-8", "d-md-gtc-9", "d-md-gtc-10", "d-md-gtc-11", "d-md-gtc-12",
+    "d-md-gtr-1", "d-md-gtr-2", "d-md-gtr-3", "d-md-gtr-4", "d-md-gtr-5", "d-md-gtr-6", "d-md-gtr-7", "d-md-gtr-8", "d-md-gtr-9", "d-md-gtr-10", "d-md-gtr-11", "d-md-gtr-12",
+    
+    "d-lg-gtc-1", "d-lg-gtc-2", "d-lg-gtc-3", "d-lg-gtc-4", "d-lg-gtc-5", "d-lg-gtc-6", "d-lg-gtc-7", "d-lg-gtc-8", "d-lg-gtc-9", "d-lg-gtc-10", "d-lg-gtc-11", "d-lg-gtc-12",
+    "d-lg-gtr-1", "d-lg-gtr-2", "d-lg-gtr-3", "d-lg-gtr-4", "d-lg-gtr-5", "d-lg-gtr-6", "d-lg-gtr-7", "d-lg-gtr-8", "d-lg-gtr-9", "d-lg-gtr-10", "d-lg-gtr-11", "d-lg-gtr-12",
+    
+    "d-xl-gtc-1", "d-xl-gtc-2", "d-xl-gtc-3", "d-xl-gtc-4", "d-xl-gtc-5", "d-xl-gtc-6", "d-xl-gtc-7", "d-xl-gtc-8", "d-xl-gtc-9", "d-xl-gtc-10", "d-xl-gtc-11", "d-xl-gtc-12",
+    "d-xl-gtr-1", "d-xl-gtr-2", "d-xl-gtr-3", "d-xl-gtr-4", "d-xl-gtr-5", "d-xl-gtr-6", "d-xl-gtr-7", "d-xl-gtr-8", "d-xl-gtr-9", "d-xl-gtr-10", "d-xl-gtr-11", "d-xl-gtr-12",
     
     // top, left, bottom, right
     "t-0", "t-100p", "l-0", "l-100p",
@@ -99,35 +164,62 @@ const excludePairs = [
 
     "xs-t-0", "xs-t-100p", "xs-l-0", "xs-l-100p",
     "xs-b-0", "xs-b-100p", "xs-r-0", "xs-r-100p",
+
     "sm-t-0", "sm-t-100p", "sm-l-0", "sm-l-100p",
     "sm-b-0", "sm-b-100p", "sm-r-0", "sm-r-100p",
+
     "md-t-0", "md-t-100p", "md-l-0", "md-l-100p",
     "md-b-0", "md-b-100p", "md-r-0", "md-r-100p",
+
     "lg-t-0", "lg-t-100p", "lg-l-0", "lg-l-100p",
     "lg-b-0", "lg-b-100p", "lg-r-0", "lg-r-100p",
+
     "xl-t-0", "xl-t-100p", "xl-l-0", "xl-l-100p",
     "xl-b-0", "xl-b-100p", "xl-r-0", "xl-r-100p",
 
+    "d-sm-t-0", "d-sm-t-100p", "d-sm-l-0", "d-sm-l-100p",
+    "d-sm-b-0", "d-sm-b-100p", "d-sm-r-0", "d-sm-r-100p",
+
+    "d-md-t-0", "d-md-t-100p", "d-md-l-0", "d-md-l-100p",
+    "d-md-b-0", "d-md-b-100p", "d-md-r-0", "d-md-r-100p",
+
+    "d-lg-t-0", "d-lg-t-100p", "d-lg-l-0", "d-lg-l-100p",
+    "d-lg-b-0", "d-lg-b-100p", "d-lg-r-0", "d-lg-r-100p",
+    
+    "d-xl-t-0", "d-xl-t-100p", "d-xl-l-0", "d-xl-l-100p",
+    "d-xl-b-0", "d-xl-b-100p", "d-xl-r-0", "d-xl-r-100p",
+
     // animation
     "aic-1", "aic-if", "adu-1000",
+
+    // opacity
+    "op-0", "op-1",
     
-    "aic-1", "aic-if", "adu-1000",
-    "aic-1", "aic-if", "adu-1000",
-    "aic-1", "aic-if", "adu-1000",
-    "aic-1", "aic-if", "adu-1000",
-    "aic-1", "aic-if", "adu-1000",
+    "xs-op-0", "xs-op-1",
+    "sm-op-0", "sm-op-1",
+    "md-op-0", "md-op-1",
+    "lg-op-0", "lg-op-1",
+    "xl-op-0", "xl-op-1",
 
+    "d-sm-op-0", "d-sm-op-1",
+    "d-md-op-0", "d-md-op-1",
+    "d-lg-op-0", "d-lg-op-1",
+    "d-xl-op-0", "d-xl-op-1",
+    
     // box shadow
-    "bsh-n",
+    "bsh-n", "xs-bsh-n", "sm-bsh-n", "md-bsh-n", "lg-bsh-n", "xl-bsh-n",
+    "d-sm-bsh-n", "d-md-bsh-n", "d-lg-bsh-n", "d-xl-bsh-n",
 
-    "xs-bsh-n",
-    "sm-bsh-n",
-    "md-bsh-n",
-    "lg-bsh-n",
-    "xl-bsh-n",
+    // outline
+    "o-n", "xs-o-n", "sm-o-n", "md-o-n", "lg-o-n", "xl-o-n",
+    "d-sm-o-n", "d-md-o-n", "d-lg-o-n", "d-xl-o-n",
+
+    // border
+    "b-n", "xs-b-n", "sm-b-n", "md-b-n", "lg-b-n", "xl-b-n",
+    "d-sm-b-n", "d-md-b-n", "d-lg-b-n", "d-xl-b-n",
 ];
 
-const classPairsCss = {
+const pairClass = {
     // aspect-ratio
     "aspr-": ["aspect-ratio", "/"],
 
@@ -149,6 +241,7 @@ const classPairsCss = {
     "bfb-": ["backdrop-filter", "px"],
     
     // border
+    "b-": ["border", "px"],
     "bw-": ["border-width", "px"],
     "blw-": ["border-left-width", "px"],
     "brw-": ["border-right-width", "px"],
@@ -186,14 +279,12 @@ const classPairsCss = {
 
     // flex
     "f-": ["flex", ""],
-    
-    // fill
-    "fi-": ["fill", "#"],
 
     // opacity
-    "o-": ["opacity", "."],
+    "op-": ["opacity", ""],
 
     // outline
+    "o-": ["outline", "px"],
     "ow-": ["outline-width", "px"],
     "oc-": ["outline-color", "#"],
     "oo-": ["outline-offset", "px"],
@@ -228,7 +319,7 @@ const classPairsCss = {
     // animation
     "adu-": ["animation-duration", "ms"],
     "ade-": ["animation-delay", "ms"],
-    "aic": ["animation-iteration-count"],
+    "aic-": ["animation-iteration-count"],
 
     // grid
     "gtc-": ["grid-template-columns", "fr"],
@@ -251,9 +342,10 @@ const classPairsCss = {
     "tftz-": ["transform", "px"],
     
     // transition
+    "ts-": ["transition", "ms"],
     "tsp-": ["transition-property", ""],
     "tsdu-": ["transition-duration", "ms"],
-    "tsde": ["transition-delay", "ms"],
+    "tsde-": ["transition-delay", "ms"],
     
     // filter
     "fb-": ["filter", "px"],
@@ -261,6 +353,23 @@ const classPairsCss = {
 
     // box-shadow
     "bsh-": ["box-shadow", "px"],
+
+    // background
+    "bglg-": ["background", "%"],
+    "bgrg-": ["background", "%"],
+    "bgcg-": ["background", "%"],
+    
+    // stroke
+    "st-": ["stroke", "#"],
+    "stw-": ["stroke-width", "px"],
+    "stop-": ["stroke-opacity", ""],
+    "stda-": ["stroke-dasharray", ""],
+    "stdo-": ["stroke-dashoffset", "px"],
+    "stml-": ["stroke-miterlimit", ""],
+
+    // fill
+    "fi-": ["fill", "#"],
+    "fiop-": ["fill-opacity", ""],
 };
 
 const pairSize = {
@@ -595,24 +704,162 @@ const pairSizeDown = {
     "d-xl-bsh-": ["box-shadow", "px"],
 };
 
+const pairPseudo = {
+    // hover
+    "hv-c-": ["color", "#"],
+    "hv-bgc-": ["background-color", "#"],
+    "hv-bc-": ["border-color", "#"],
+    "hv-oc-": ["outline-color", "#"],
+    "hv-op-": ["opacity", "%"],
+    "hv-bsh-": ["box-shadow", "px"],
+    "hv-tfs-": ["transform", ""],
+    "hv-fbr-": ["filter", ""],
+
+    // active
+    "at-c-": ["color", "#"],
+    "at-bgc-": ["background-color", "#"],
+    "at-bc-": ["border-color", "#"],
+    "at-oc-": ["outline-color", "#"],
+    "at-op-": ["opacity", "%"],
+    "at-bsh-": ["box-shadow", "px"],
+    "at-tfs-": ["transform", ""],
+    "at-fbr-": ["filter", ""],
+
+    // focus
+    "fc-c-": ["color", "#"],
+    "fc-bgc-": ["background-color", "#"],
+    "fc-bc-": ["border-color", "#"],
+    "fc-oc-": ["outline-color", "#"],
+    "fc-op-": ["opacity", "%"],
+    "fc-bsh-": ["box-shadow", "px"],
+    "fc-tfs-": ["transform", ""],
+    "fc-fbr-": ["filter", ""],
+};
+
 const pairTran = {
-    "fade": classPairsCss["o-"],
-    "pop": classPairsCss["tfs-"],
-    "slide": classPairsCss["tft-"]
+    "fade": pairClass["op-"],
+    "pop": pairClass["tfs-"],
+    "slide": pairClass["tft-"]
+};
+
+const pairTimingFunction = {
+    "l": "linear",
+    "e": "ease",
+    "ei": "ease-in",
+    "eo": "ease-out",
+    "eio": "ease-in-out",
+    "ss": "step-start",
+    "se": "step-end"
+};
+
+const pairProperty = {
+    "a": "all",
+    "c": "color",
+    "bc": "border-color",
+    "bgc": "background-color",
+    "oc": "outline-color",
+    "op": "opacity",
+    "bsh": "box-shadow",
+    "tf": "transform"
+};
+
+const pairBorderStyle = {
+    "s": "solid",
+    "dt": "dotted",
+    "ds": "dashed",
+    "db": "double",
+    "g": "groove",
 }
 
+const pairColor = {
+    "tr": "transparent",
+    "w": "var(--white-color)",
+    "b": "var(--black-color)",
+
+    "p": "var(--primary-color)",
+    "nt": "var(--neutral-color)",
+    "sc": "var(--success-color)",
+    "wn": "var(--warning-color)",
+    "er": "var(--error-color)",
+
+    "p-l": "var(--primary-color)",
+    "nt-l": "var(--neutral-color)",
+    "sc-l": "var(--success-color)",
+    "wn-l": "var(--warning-color)",
+    "er-l": "var(--error-color)",
+
+    "p-d": "var(--primary-dark-color)",
+    "nt-d": "var(--neutral-dark-color)",
+    "sc-d": "var(--success-dark-color)",
+    "wn-d": "var(--warning-dark-color)",
+    "er-d": "var(--error--dark-color)",
+}
+
+const pairLinearPosition = {
+    "tt": "to top",
+    "ttl": "to top left",
+    "ttr": "to top right",
+    "tb": "to bottom",
+    "tbl": "to bottom left",
+    "tbr": "to bottom right",
+    "tl": "to left",
+    "tlt": "to left top",
+    "tlb": "to left bottom",
+    "tr": "to right",
+    "trt": "to right top",
+    "trb": "to right bottom"
+}
+
+const pairRadialShape = {
+    "c": "circle",
+    "e": "ellipse"
+}
+
+const pairRadialSize = {
+    "cs": "closest-side",
+    "fs": "farthest-side",
+    "cc": "closest-corner",
+    "fc": "farthest-corner"
+}
+
+const shows = [ "click", "hover" ];
+const hides = [ "click", "leave" ];
+const postos = [ "target", "window" ];
+
 export default {
-    excludePairs,
-    classPairsCss,
+    shows,
+    hides,
+    postos,
+    pairExclude,
+    pairClass,
     pairSize,
     pairSizeDown,
-    pairTran
+    pairPseudo,
+    pairTran,
+    pairTimingFunction,
+    pairProperty,
+    pairBorderStyle,
+    pairColor,
+    pairLinearPosition,
+    pairRadialShape,
+    pairRadialSize,
 }
 
 export {
-    excludePairs,
-    classPairsCss,
+    shows,
+    hides,
+    postos,
+    pairExclude,
+    pairClass,
     pairSize,
     pairSizeDown,
-    pairTran
+    pairPseudo,
+    pairTran,
+    pairTimingFunction,
+    pairProperty,
+    pairBorderStyle,
+    pairColor,
+    pairLinearPosition,
+    pairRadialShape,
+    pairRadialSize,
 }

@@ -9,21 +9,39 @@ import {
     LeftRight,
     Right,
     RightLeft,
-    Center,
     Top,
     TopBottom,
     Bottom,
     BottomTop,
+    CenterHorizontal,
+    CenterVertical,
     MinWidth,
     MinHeight,
     MaxWidth,
     MaxHeight,
     Width,
     Height,
-    regPercent,
+    regNewLine,
+    regPercentage,
+    Click,
+    Show,
+    Hide,
+    Target,
+    regDegree,
 } from "./constants.js";
-import { excludePairs } from "./pairs.js";
-
+import {
+    hides,
+    pairBorderStyle,
+    pairColor,
+    pairExclude, 
+    pairLinearPosition,
+    pairProperty,
+    pairRadialShape,
+    pairRadialSize,
+    pairTimingFunction,
+    postos,
+    shows,
+} from "./pairs.js";
 
 // is ----------------------
 
@@ -31,16 +49,19 @@ function isNumber(value) {
     return value && !isNaN(+value)
 }
 
-function isHex(value) {
-    return regHex.test(value) || value.startsWith("hx");
+function isColor(value) {
+    var style = new Option().style;
+    style.color = value;
+    return (
+        regHex.test(value) ||
+        value in pairColor ||
+        value.startsWith("hx") ||
+        style.color
+    );
 }
 
 function isAspectRatio(short) {
     return short === "aspr-" || short.endsWith("-aspr-");
-}
-
-function isBoxShadow(short) {
-    return short === "bsh-" || short.endsWith("-bsh-");
 }
 
 function isSize(short) { 
@@ -68,7 +89,25 @@ function isBackdropFilter(short) {
     );
 }
 
-function isColor(short) {
+function isBackgroundLinearGradient(short) {
+    return (
+        short === "bglg-" || short.endsWith("-bglg-")
+    );
+}
+
+function isBackgroundRadialGradient(short) {
+    return (
+        short === "bgrg-" || short.endsWith("-bgrg-")
+    );
+}
+
+function isBackgroundConicGradient(short) {
+    return (
+        short === "bgcg-" || short.endsWith("-bgcg-")
+    );
+}
+
+function isColorShort(short) {
     return (
         short === "bc-" || short.endsWith("-bc-") ||
         short === "blc-" || short.endsWith("-blc-") ||
@@ -81,6 +120,12 @@ function isColor(short) {
         short === "fi-" || short.endsWith("-fi-") ||
         short === "oc-" || short.endsWith("-oc-") ||
         short === "tdc-" || short.endsWith("-tdc-")
+    );
+}
+
+function isStrokeDashArray(short) {
+    return (
+        short === "stda-" || short.endsWith("-stda-")
     );
 }
 
@@ -103,6 +148,28 @@ function isTransform(short) {
     );
 }
 
+function isTransition(short) {
+    return short === "ts-" || short.endsWith("-ts-");
+}
+
+function isBoxShadow(short) {
+    return short === "bsh-" || short.endsWith("-bsh-");
+}
+
+function isOutlineBorder(short) {
+    return (
+        short === "o-" || short.endsWith("-o-") ||
+        short === "b-" || short.endsWith("-b-")
+    );
+}
+
+function isPaddingMargin(short) {
+    return (
+        short === "p-" || short.endsWith("-p-") ||
+        short === "m-" || short.endsWith("-m-")
+    );
+}
+
 function isGrid(short) { 
     return (
         short === "gtc-" || short.endsWith("-gtc-") ||
@@ -112,63 +179,188 @@ function isGrid(short) {
 
 // value creators -------------------------
 
-function tranValue(short, value, dimen) {
-    switch (short) {
-        case "tfr-":
-            return isNumber(value) ? `rotate(${value}${dimen})` : `rotate(${value})`;
-        case "tfrx-":
-            return isNumber(value) ? `rotateX(${value}${dimen})` : `rotateX(${value})`;
-        case "tfry-":
-            return isNumber(value) ? `rotateY(${value}${dimen})` : `rotateY(${value})`;
-        case "tfrz-":
-            return isNumber(value) ? `rotateZ(${value}${dimen})` : `rotateZ(${value})`;
-        
-        case "tfs-":
-            const trs_slices = value.split("-");
-            if (trs_slices.length < 2) {
-                return null;
-            } else {
-                return `scale(${trs_slices[0]},${trs_slices[1]})`;
-            }
-        case "tfsx-":
-            return `scaleX(${value})`;
-        case "tfsy-":
-            return `scaleY(${value})`;
-        case "tfsz-":
-            return `scaleZ(${value})`;
+function transformValue(short, value, dimen) {
+    // rotate
+    if (short === "tfr-" || short.endsWith("-tfr-")) {
+        return isNumber(value) ? `rotate(${value}${dimen})` : `rotate(${value})`;
+    } else if (short === "tfrx-" || short.endsWith("-tfrx-")) {
+        return isNumber(value) ? `rotateX(${value}${dimen})` : `rotateX(${value})`;
+    } else if (short === "tfry-" || short.endsWith("-tfry-")) {
+        return isNumber(value) ? `rotateY(${value}${dimen})` : `rotateY(${value})`;
+    } else if (short === "tfrz-" || short.endsWith("-tfrz-")) {
+        return isNumber(value) ? `rotateZ(${value}${dimen})` : `rotateZ(${value})`;
+    }
 
-        case "tft-":
-            const trt_slices = value.split("-");
-            if (trt_slices.length < 2) {
-                return null;
-            } else {
-                const value1 = isNumber(trt_slices[0]) ? trt_slices[0] + dimen : trt_slices[0];
-                const value2 = isNumber(trt_slices[1]) ? trt_slices[1] + dimen : trt_slices[1];
-                return `translate(${value1},${value2})`;
-            }
-        case "tftx-":
-            return isNumber(value) ? `translateX(${value}${dimen})` : `translateX(${value})`;
-        case "tfty-":
-            return isNumber(value) ? `translateY(${value}${dimen})` : `translateY(${value})`;
-        case "tftz-":
-            return isNumber(value) ? `translateZ(${value}${dimen})` : `translateZ(${value})`;
+    // scale
+    if (short === "tfs-" || short.endsWith("-tfs-")) {
+        const trs_slices = valueSplitter(value);
+        if (trs_slices.length < 2) {
+            return null;
+        } else {
+            return `scale(${trs_slices[0]},${trs_slices[1]})`;
+        }
+    } else if (short === "tfsx-" || short.endsWith("-tfsx-")) {
+        return `scaleX(${value})`;
+    } else if (short === "tfsy-" || short.endsWith("-tfsy-")) {
+        return `scaleY(${value})`;
+    } else if (short === "tfsz-" || short.endsWith("-tfsz-")) {
+        return `scaleZ(${value})`;
+    }
+
+    // translate
+    if (short === "tft-" || short.endsWith("-tft-")) {
+        const slices = valueSplitter(value);
+        if (slices.length < 2) {
+            return null;
+        } else {
+            const value1 = isNumber(slices[0]) ? slices[0] + dimen : slices[0];
+            const value2 = isNumber(slices[1]) ? slices[1] + dimen : slices[1];
+            return `translate(${value1},${value2})`;
+        }
+    } else if (short === "tftx-" || short.endsWith("-tftx-")) {
+        return isNumber(value) ? `translateX(${value}${dimen})` : `translateX(${value})`;
+    } else if (short === "tfty-" || short.endsWith("-tfty-")) {
+        return isNumber(value) ? `translateY(${value}${dimen})` : `translateY(${value})`;
+    } else if (short === "tftz-" || short.endsWith("-tftz-")) {
+        return isNumber(value) ? `translateZ(${value}${dimen})` : `translateZ(${value})`;
     }
 }
 
-function gridValue(value, dimen) {
-    const values = value.split("-");
-    const newSlices = [];
-    for (let each of values) {
-        let eachIn = percentageChecker(each);
-        eachIn = + eachIn || eachIn;
-        if (typeof(eachIn) === "number") {
-            eachIn = eachIn + dimen;
-        } else if (eachIn === "a") {
-            eachIn = "auto";
+function transitionValue(value, dimen) {
+    let result = "";
+    const slices = valueSplitter(value);
+    slices.forEach(slice => {
+        if (slice in pairTimingFunction) {
+            result += pairTimingFunction[slice];
+        } else if (slice in pairProperty) {
+            result += pairProperty[slice];
+        } else if (isNumber(slice)) {
+            result += slice + dimen;
+        } else {
+            result += slice;
         }
-        newSlices.push(eachIn);
+        result += " ";
+    });
+    return result.trimEnd();
+}
+
+function boxShadowValue(value, dimen) {
+    let result = "";
+    const slices = valueSplitter(value);
+    for (let i = 0; i < slices.length; i ++) {
+        const slice = slices[i];
+        if (isColor(slice)) {
+            result += colorValue(slice);
+        } else {
+            result += isNumber(slice) ? slice + dimen : slice;
+        }
+        if (!(slice === "," || slice[i+1] === ",")) {
+            result += " ";
+        }
     }
-    return newSlices.join(" ");
+    return result.trimEnd();
+}
+
+function backgroundLinearGradientValue(value, dimen) {
+    let result = "";
+    const slices = valueSplitter(value);
+    for (let i = 0; i < slices.length; i ++) {
+        const slice = slices[i];
+        const sliceNext = slices[i+1];
+        if (slice in pairLinearPosition) {
+            result += pairLinearPosition[slice];
+        } else if (isColor(slice)) {
+            result += colorValue(slice);
+        } else {
+            result += isNumber(slice) ? slice + dimen : slice;
+        }
+        if (sliceNext) {
+            if (isColor(sliceNext)) {
+                result += ",";
+            } else result += " ";
+        }
+    }
+    return `linear-gradient(${result})`;
+}
+
+function backgroundRadialGradientValue(value, dimen) {
+    let result = "";
+    const slices = valueSplitter(value);
+    for (let i = 0; i < slices.length; i ++) {
+        const slice = slices[i];
+        const sliceNext = slices[i+1];
+        if (slice in pairRadialShape) {
+            result += pairRadialShape[slice];
+        } else if (slice in pairRadialSize) {
+            result += pairRadialSize[slice];
+        } else if (isColor(slice)) {
+            result += colorValue(slice);
+        } else {
+            result += isNumber(slice) ? slice + dimen : slice === "fr" ? "from" : slice;
+        }
+        if (sliceNext) {
+            if (isColor(sliceNext)) {
+                result += ",";
+            } else result += " ";
+        }
+    }
+    return `radial-gradient(${result})`;
+}
+
+function backgroundConicGradientValue(value, dimen) {
+    let result = "";
+    const slices = valueSplitter(value);
+    for (let i = 0; i < slices.length; i ++) {
+        const slice = slices[i];
+        const sliceNext = slices[i+1];
+        if (isColor(slice)) {
+            result += colorValue(slice);
+        } else {
+            result += isNumber(slice) ? slice + dimen : slice === "fr" ? "from" : slice;
+        }
+        if (sliceNext) {
+            if (isColor(sliceNext)) {
+                result += ",";
+            } else result += " ";
+        }
+    }
+    return `conic-gradient(${result})`;
+}
+
+function outlineBorderValue(value, dimen) {
+    let result = "";
+    const slices = valueSplitter(value);
+    slices.forEach(slice => {
+        if (slice in pairBorderStyle) {
+            result += pairBorderStyle[slice];
+        } else if (isColor(slice)) {
+            result += colorValue(slice);
+        } else {
+            result += isNumber(slice) ? slice + dimen : slice;
+        }
+        result += " ";
+    })
+    return result.trimEnd();
+}
+
+function paddingMarginValue(value, dimen) {
+    let result = "";
+    valueSplitter(value).forEach(each => {
+        result += isNumber(each) ? each + dimen : each;
+        result += " ";
+    });
+    return result.trimEnd();
+}
+
+function gridValue(value, dimen) {
+    let result = "";
+    const values = valueSplitter(value);
+    for (let each of values) {
+        each = each === "a" ? "auto" : each;
+        each = isNumber(each) ? each + dimen : each;
+        result += each + " ";
+    }
+    return result.trimEnd();
 }
 
 function filterValue(short, value, dimen) {
@@ -185,27 +377,56 @@ function backdropFilterValue(short, value, dimen) {
     }
 }
 
-function colorValue(value, dimen) {
-    return isHex(value) ? dimen + value.replace("hx", "") : value;
+function colorValue(value) {
+    if (value in pairColor) {
+        return pairColor[value];
+    } else {
+        if (regHex.test(value) || value.startsWith("hx")) {
+            return "#" + value.replace("hx", "");
+        } else {
+            return value;
+        }
+    }
 }
 
-function boxShadowValue(value, dimen) {
-    let result = "";
-    value = commaChecker(value);
-    const slices = value.split("-");
-    for (let i = 0; i < slices.length; i ++) {
-        if (
-            i === slices.length - 1 ||
-            slices[i+1] === "," ||
-            slices[i].startsWith("hx")
-        ) {
-            result += colorValue(slices[i], "#");
-        } else {
-            result += isNumber(slices[i]) ? slices[i] + dimen : slices[i];
-        }
-        result += " ";
+// character checkers -----------------------------
+
+function pointChecker(value) {
+    const ex = regPoint.exec(value);
+    if (ex) {
+        const index = ex.index;
+        value = value.slice(0, index) + "." + value.slice(index+1) || "";
+        return pointChecker(value);
     }
-    return result.trim();
+    return value;
+}
+
+function percentageChecker(value) {
+    const ex = regPercentage.exec(value);
+    if (ex) {
+        const index = ex.index;
+        value = value.slice(0, index+1) + "%" + value.slice(index+2) || "";
+        return percentageChecker(value);
+    }
+    return value;
+}
+
+function degreeChecker(value) {
+    const ex = regDegree.exec(value);
+    if (ex) {
+        const index = ex.index;
+        value = value.slice(0, index+1) + "deg" + value.slice(index+2) || "";
+        return degreeChecker(value);
+    }
+    return value;
+}
+
+function commaChecker(value) {
+    if (value.includes("-n-")) {
+        value = value.replace("-n-", "-,-");
+        return commaChecker(value);
+    }
+    return value;
 }
 
 // value validator ----------------------
@@ -213,15 +434,42 @@ function boxShadowValue(value, dimen) {
 function validateValue(short, value, dimen) {
     value = pointChecker(value);
     value = percentageChecker(value);
-
+    value = degreeChecker(value);
+    value = commaChecker(value);
+    
     // color
-    if (isColor(short)) {
-        return colorValue(value, dimen);
+    if (isColorShort(short)) {
+        return colorValue(value);
+    }
+
+    else if (isPaddingMargin(short)) {
+        return paddingMarginValue(value, dimen);
+    }
+
+    // outline border
+    else if (isOutlineBorder(short)) {
+        return outlineBorderValue(value, dimen);
+    }
+    
+    // background
+    else if (isBackgroundLinearGradient(short, dimen)) {
+        return backgroundLinearGradientValue(value, dimen);
+    }
+    else if (isBackgroundRadialGradient(short)) {
+        return backgroundRadialGradientValue(value, dimen);
+    }
+    else if (isBackgroundConicGradient(short)) {
+        return backgroundConicGradientValue(value, dimen);
+    }
+
+    // transition
+    else if (isTransition(short)) {
+        return transitionValue(value, dimen);
     }
 
     // transform
     else if (isTransform(short)) {
-        return tranValue(short, value, dimen);
+        return transformValue(short, value, dimen);
     }
 
     // aspect ratio
@@ -249,47 +497,23 @@ function validateValue(short, value, dimen) {
         return boxShadowValue(value, dimen);
     } 
 
-    // anther
+    else if (isStrokeDashArray(short)) {
+        return valueSplitter(value).join(",");
+    }
+
+    // another
     else {
         return isNumber(value) ? value + dimen : value;
     }
 }
 
-// character checkers -----------------------------
-
-function pointChecker(value) {
-    if (regPoint.test(value)) {
-        value = value.replace("p", ".");
-        return pointChecker(value);
-    }
-    return value;
-}
-
-function percentageChecker(value) {
-    const ex = regPercent.exec(value);
-    if (ex) {
-        const index = ex.index;
-        value = value.slice(0, index+1) + value.slice(index+2) || "";
-        return percentageChecker(value);
-    }
-    return value;
-}
-
-function commaChecker(value) {
-    if (value.includes("-n-")) {
-        value = value.replace("-n-", "-,-");
-    }
-    return value;
-}
-
 // helpers -----------------------------
 
-function applierClass(styles, short, nameDimen,) {
+function applierClass(styles, short, nameDimen) {
     document.querySelectorAll(`[class*='${short}']`).forEach(e => {
-        const className = e.className.trim();
+        const className = e.getAttribute("class").replace(regNewLine, " ").trim();
         const value = getClassValue(` ${className} `, ` ${short}`);
-
-        if (value && !excludePairs.includes(short + value)) {
+        if (value && !pairExclude.includes(short + value)) {
             const validatedValue = validateValue(short, value, nameDimen[1]);
             let props;
             if (isSize(short)) {
@@ -322,6 +546,20 @@ function applierClass(styles, short, nameDimen,) {
     });
 }
 
+function applierPseudo(styles, short, nameDimen) {
+    document.querySelectorAll(`[class*='${short}']`).forEach(e => {
+        const className = e.getAttribute("class").replace(regNewLine, " ").trim();
+        const value = getClassValue(` ${className} `, ` ${short}`);
+        if (value && !pairExclude.includes(short + value)) {
+            const validatedValue = validateValue(short, value, nameDimen[1]);
+            const props = { [nameDimen[0]]: validatedValue };
+            const name = getPseudoName(short);
+            const style = selectorCreator(`.${short}${value}:not([disabled]):${name}`, props);
+            if (!styles.includes(style)) { styles.push(style); }
+        }
+    });
+}
+
 function extractValue(value) {
     let result = "";
     for (const char of value) {
@@ -344,6 +582,12 @@ function getClassValue(classes, short) {
     }
 }
 
+function getPseudoName(short) {
+    if (short.startsWith("hv-")) return "hover";
+    if (short.startsWith("at-")) return "active";
+    if (short.startsWith("fc-")) return "focus";
+}
+
 function getSize() {
     let size = ["xs"];
     const width = window.innerWidth;
@@ -355,43 +599,70 @@ function getSize() {
 }
   
 function getSizeDown() {
-    let size = ["xs"];
+    let size = [];
     const width = window.innerWidth;
     if (width <= SM) size.push("sm");
-    if (width <= MD) size.push("md")
+    if (width <= MD) size.push("md");
     if (width <= LG) size.push("lg");
     if (width <= XL) size.push("xl");
     return size;
 }
 
+function getShow(element) {
+    let _show = element.getAttribute(Show);
+    if (_show) {
+        _show = _show.trim();
+        if (shows.includes(_show)) return _show;
+        else return null;
+    } else return Click;
+}
+
+function getHide(element) {
+    const _hide = element.getAttribute(Hide);
+    if (_hide) {
+        _hide = _hide.trim();
+        if (hides.includes(_hide)) return _hide;
+        else return null;
+    } else return Click;
+}
+
+function getPosto(posto, target) {
+    if (postos.includes(posto)) {
+        if (posto === Target) return target;
+        else {
+            return {
+                getBoundingClientRect() {
+                    return { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
+                }
+            }
+        }
+    } else return document.getElementById(posto);
+}
+
 function getLeftTop(element, rect, positions) {
+    const maxLeft = window.innerWidth - element.clientWidth;
+    const maxTop = window.innerHeight - element.clientHeight;
     let left = rect.x;
     let top = rect.y;
-    const hp = positions[0];
-    const vp = positions[1];
 
-    if (hp == Left) {
-        left -= element.clientWidth;
-    } else if (hp == LeftRight) {
-        left += rect.width - element.clientWidth;
-    } else if (hp == Right) {
-        left += rect.width;
-    } else if (hp == RightLeft) {
-        left = rect.x;
-    } else if (hp == Center) {
-        left += (rect.width - element.clientWidth) / 2;
+    for (let position of positions) {
+        switch (position) {
+            case Left: left -= element.clientWidth; break;
+            case LeftRight: left += rect.width - element.clientWidth; break;
+            case Right: left += rect.width; break;
+            case RightLeft: left = rect.x; break;
+            case Top: top -= element.clientHeight; break;
+            case TopBottom: top += rect.height - element.clientHeight; break;
+            case Bottom: top += rect.height; break;
+            case BottomTop: top = rect.y; break;
+            case CenterHorizontal: left += (rect.width - element.clientWidth) / 2; break;
+            case CenterVertical: top += (rect.height - element.clientHeight) / 2; break;
+        }
     }
-    if (vp == Top) {
-        top -= element.clientHeight;
-    } else if (vp == TopBottom) {
-        top += rect.height - element.clientHeight;
-    } else if (vp == Bottom) {
-        top += rect.height;
-    } else if (vp == BottomTop) {
-        top = rect.y;
-    } else if (vp == Center) {
-        top += (rect.height - element.clientHeight) / 2;
-    }
+    left = left < 0 ? 0 : left;
+    left = left > maxLeft ? maxLeft : left;
+    top = top < 0 ? 0 : top;
+    top = top > maxTop ? maxTop : top;
     return { left, top };
 }
 
@@ -419,12 +690,61 @@ function selectorCreator(selector, pairs) {
     return selector + objectToSelector(pairs);
 }
 
+function validatePosition(element, defaults) {
+    const position = element.getAttribute("pos");
+    const positions = position ? valueSplitter(position) : null;
+    let hp = defaults[0];
+    let vp = defaults[1];
+    if (positions) {
+        for (let position of positions) {
+            switch (position) {
+                case Left: hp = Left; break;
+                case LeftRight: hp = LeftRight; break;
+                case Right: hp = Right; break;
+                case RightLeft: hp = RightLeft; break;
+                case Top: vp = Top; break;
+                case TopBottom: vp = TopBottom; break;
+                case Bottom: vp = Bottom; break;
+                case BottomTop: vp = BottomTop; break;
+                case CenterHorizontal: hp = CenterHorizontal; break;
+                case CenterVertical: vp = CenterVertical; break;
+            }
+        }
+    }
+    element.setAttribute("pos", `${hp} ${vp}`);
+}
+
+function valueSplitter(value, dimeter = "-") {
+    let slices = [];
+    let slice = "";
+    for (let i = 0; i < value.length; i ++) {
+        const char = value[i];
+        if (char !== dimeter) {
+            slice += char;
+        } else if (!slice) {
+            slice += char;
+        } else {
+            const trim = slice.trim();
+            if (trim && trim !== dimeter) slices.push(trim);
+            slice = "";
+        }
+        if (i === value.length - 1) {
+            const trim = slice.trim();
+            if (slice && trim && trim !== dimeter) slices.push(trim);
+        }
+    }
+    return slices;
+}
+
 // ---------------------------------
 
 export default {
     getClassValue,
     getSize,
     getSizeDown,
+    getShow,
+    getHide,
+    getPosto,
     validateValue,
     stylePicker,
     selectorCreator,
@@ -433,12 +753,17 @@ export default {
     isMaxSize,
     getLeftTop,
     applierClass,
+    applierPseudo,
+    validatePosition
 }
 
 export {
     getClassValue,
     getSize,
     getSizeDown,
+    getShow,
+    getHide,
+    getPosto,
     validateValue,
     stylePicker,
     selectorCreator,
@@ -447,4 +772,6 @@ export {
     isMaxSize,
     getLeftTop,
     applierClass,
+    applierPseudo,
+    validatePosition
 }

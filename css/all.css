@@ -1,48 +1,57 @@
 /* root */
 @import url(theme.css);
 
-/* layouts */
-@import url(layouts.css);
+/* attr */
+@import url(attr/attrs.css);
 
-/* elements */
-@import url(classes.css);
-@import url(tags.css);
-@import url(attrs.css);
+/* tag */
+@import url(tag/tags.css);
 
-/* animations */
-@import url(anims.css);
-
-/* transition */
-@import url(transitions.css);
-
-/* size percentage */
-@import url(sp.css);
+/* class */
+@import url(class/items.css);
+@import url(class/layouts.css);
+@import url(class/anims.css);
+@import url(class/popups.css);
+@import url(class/shapes.css);
 
 /* utilities */
-@import url(utils.css);
+@import url(utils/general.css);
+@import url(utils/responsive.css);
 
-/*responsers
-Extra Small */
-@import url(responsers/xs/layouts.css);
-@import url(responsers/xs/sp.css);
-@import url(responsers/xs/utils.css);
+/* responsers up*/
+/* Extra */
+@import url(responsers/up/xs/layouts.css);
+@import url(responsers/up/xs/utils.css);
 
 /* Small */
-@import url(responsers/sm/layouts.css);
-@import url(responsers/sm/sp.css);
-@import url(responsers/sm/utils.css);
+@import url(responsers/up/sm/layouts.css);
+@import url(responsers/up/sm/utils.css);
 
 /* Medium */
-@import url(responsers/md/layouts.css);
-@import url(responsers/md/sp.css);
-@import url(responsers/md/utils.css);
+@import url(responsers/up/md/layouts.css);
+@import url(responsers/up/md/utils.css);
 
 /* Large */
-@import url(responsers/lg/layouts.css);
-@import url(responsers/lg/sp.css);
-@import url(responsers/lg/utils.css);
+@import url(responsers/up/lg/layouts.css);
+@import url(responsers/up/lg/utils.css);
 
 /* Extra Large */
-@import url(responsers/xl/layouts.css);
-@import url(responsers/xl/sp.css);
-@import url(responsers/xl/utils.css);
+@import url(responsers/up/xl/layouts.css);
+@import url(responsers/up/xl/utils.css);
+
+/* responsers down*/
+/* Small */
+@import url(responsers/down/sm/layouts.css);
+@import url(responsers/down/sm/utils.css);
+
+/* Medium */
+@import url(responsers/down/md/layouts.css);
+@import url(responsers/down/md/utils.css);
+
+/* Large */
+@import url(responsers/down/lg/layouts.css);
+@import url(responsers/down/lg/utils.css);
+
+/* Extra Large */
+@import url(responsers/down/xl/layouts.css);
+@import url(responsers/down/xl/utils.css);

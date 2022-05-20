@@ -1,0 +1,127 @@
+* {
+  /* spacing */
+  margin: 0px;
+  padding: 0px;
+  
+  /* border */
+  border-width: 0px;
+  border-style: solid;
+  border-color: var(--border-color);
+
+  /* outline */
+  outline-width: 0px;
+  outline-style: solid;
+  outline-color: var(--outline-color);
+  
+  /* transition */
+  transition-duration: 0ms;
+  transition-property: all;
+  transition-timing-function: linear;
+
+  /* box */
+  box-sizing: border-box;
+
+}
+
+html { visibility: hidden; }
+
+body {
+  font-family: var(--body-font-family);
+  color: var(--body-text-color);
+}
+
+a { text-decoration: none; }
+
+button {
+  border: none;
+  outline: 1px solid var(--button-outline-color);
+  background-color: var(--button-background-color);
+  color: var(--button-text-color);
+  font-size: 16px;
+  padding: 5px 8px;
+  border-radius: var(--border-radius);
+  transition: all ease-in-out 75ms;
+  box-shadow: 0px 1px 2.5px 0px var(--button-box-shadow-color);
+}
+button:not([disabled]):hover {
+  filter: brightness(1.1);
+}
+button:not([disabled]):active {
+  box-shadow: 0px 0px 2px 3px var(--button-box-shadow-active-color);
+}
+button:not([disabled]):focus {
+  filter: none;
+  outline: 2px solid var(--button-outline-focus-color);
+}
+
+icon-fa { font-family: "FontAwesome"; }
+
+textarea { resize: none; }
+input::placeholder,
+textarea::placeholder {
+  font-weight: 500;
+  opacity: 0.8;
+}
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='url'],
+textarea {
+  font-family: var(--ff);
+  font-weight: 500;
+  display: block;
+  border: none;
+  outline: 1px var(--input-outline-color) solid;
+  padding: 6px 5px;
+  border-radius: var(--border-radius);
+  color: var(--input-text-color);
+  caret-color: var(--input-caret-color);
+  transition: all ease-in-out 75ms;
+  box-shadow: 0px 1px 5px 0px var(--input-box-shadow-color);
+}
+input[type='text']:not([disabled]):hover,
+input[type='email']:not([disabled]):hover,
+input[type='number']:not([disabled]):hover,
+input[type='password']:not([disabled]):hover,
+input[type='search']:not([disabled]):hover,
+input[type='tel']:not([disabled]):hover,
+input[type='url']:not([disabled]):hover,
+textarea:not([disabled]):hover {
+  filter: brightness(1.1);
+}
+input[type='text']:not([disabled]):active,
+input[type='email']:not([disabled]):active,
+input[type='number']:not([disabled]):active,
+input[type='password']:not([disabled]):active,
+input[type='search']:not([disabled]):active,
+input[type='tel']:not([disabled]):active,
+input[type='url']:not([disabled]):active,
+textarea:not([disabled]):active {
+  box-shadow: 0px 0px 2px 3px var(--input-box-shadow-active-color);
+}
+input[type='text']:not([disabled]):focus,
+input[type='email']:not([disabled]):focus,
+input[type='number']:not([disabled]):focus,
+input[type='password']:not([disabled]):focus,
+input[type='search']:not([disabled]):focus,
+input[type='tel']:not([disabled]):focus,
+input[type='url']:not([disabled]):focus,
+textarea:not([disabled]):focus {
+  filter: none;
+  outline: 2px solid var(--input-outline-focus-color);;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0px;
+}
+input[type='number'] { -moz-appearance: textfield; }
+
+label { 
+  display: block;
+  font-weight: 500;
+}

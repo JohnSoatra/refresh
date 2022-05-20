@@ -1,0 +1,223 @@
+/* Extra Large */
+@media only screen and (min-width: 1200px) {
+	/* wrapper */
+	.xl-wrapper {
+	  width: 100%;
+	  display: flex;
+	  flex-direction: row;
+	  flex-wrap: wrap;
+	}
+	
+	/* container */
+	.xl-container {
+	  margin: 0px auto;
+	  height: 100%;
+	}
+	
+	@media only screen and (min-width: 0px) {
+	  .xl-container { width: 95%; }
+	}
+	@media only screen and (min-width: 480px) {
+	  .xl-container { width: 85%; }
+	}
+	@media only screen and (min-width: 768px) {
+	  .xl-container { width: 75%; }
+	}
+	@media only screen and (min-width: 1024px) {
+	  .xl-container { width: 70%; }
+	}
+	@media only screen and (min-width: 1200px) {
+	  .xl-container { max-width: 1200px; }
+	}
+	
+	/* flex */
+	.xl-flex { display: flex; }
+	
+	.xl-fd-r { flex-direction: row; }
+	.xl-fd-c { flex-direction: column; }
+	
+	.xl-jc-s { justify-content: start; }
+	.xl-jc-e { justify-content: flex-end; }
+	.xl-jc-c { justify-content: center; }
+	
+	.xl-jc-sb { justify-content: space-between; }
+	.xl-jc-sa { justify-content: space-around; }
+	.xl-jc-se { justify-content: space-evenly; }
+	
+	.xl-ai-fs { align-items: flex-start; }
+	.xl-ai-fe { align-items: flex-end; }
+	.xl-ai-c { align-items: center; }
+	.xl-ai-st { align-items: stretch; }
+	
+	.xl-as-fs { align-self: flex-start; }
+	.xl-as-fe { align-self: flex-end; }
+	.xl-as-c { align-self: center; }
+	.xl-as-st { align-self: stretch; }
+	
+	/* box */
+	.xl-box { position: relative; }
+	
+	.xl-to-tl {
+	  position: absolute;
+	  top: 0px;
+	  left: 0px;
+	}
+	.xl-to-tr {
+	  position: absolute;
+	  top: 0px;
+	  right: 0px;
+	}
+	.xl-to-tc {
+	  position: absolute;
+	  top: 0px;
+	  left: 50%;
+	  transform: translate(-50%, 0px);
+	}
+	.xl-to-bl {
+	  position: absolute;
+	  bottom: 0px;
+	  left: 0px;
+	}
+	.xl-to-br {
+	  position: absolute;
+	  bottom: 0px;
+	  right: 0px;
+	}
+	.xl-to-bc {
+	  position: absolute;
+	  bottom: 0px;
+	  left: 50%;
+	  transform: translate(-50%, 0px);
+	}
+	.xl-to-lc {
+	  position: absolute;
+	  top: 50%;
+	  left: 0px;
+	  transform: translate(0px, -50%);
+	}
+	.xl-to-rc {
+	  position: absolute;
+	  top: 50%;
+	  right: 0px;
+	  transform: translate(0px, -50%);
+	}
+	.xl-to-c {
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	}
+	
+	/* grid */
+	.xl-grid { display: grid; }
+	
+	.xl-gtc-1 { grid-template-columns: auto; }
+	.xl-gtc-2 { grid-template-columns: auto auto; }
+	.xl-gtc-3 { grid-template-columns: auto auto auto; }
+	.xl-gtc-4 { grid-template-columns: auto auto auto auto; }
+	.xl-gtc-5 { grid-template-columns: auto auto auto auto auto; }
+	.xl-gtc-6 { grid-template-columns: auto auto auto auto auto auto; }
+	.xl-gtc-7 { grid-template-columns: auto auto auto auto auto auto auto; }
+	.xl-gtc-8 { grid-template-columns: auto auto auto auto auto auto auto auto; }
+	.xl-gtc-9 { grid-template-columns: auto auto auto auto auto auto auto auto auto; }
+	.xl-gtc-10 { grid-template-columns: auto auto auto auto auto auto auto auto auto auto; }
+	.xl-gtc-11 { grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto; }
+	.xl-gtc-12 { grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto; }
+	
+	.xl-gtr-1 { grid-template-rows: auto; }
+	.xl-gtr-2 { grid-template-rows: auto auto; }
+	.xl-gtr-3 { grid-template-rows: auto auto auto; }
+	.xl-gtr-4 { grid-template-rows: auto auto auto auto; }
+	.xl-gtr-5 { grid-template-rows: auto auto auto auto auto; }
+	.xl-gtr-6 { grid-template-rows: auto auto auto auto auto auto; }
+	.xl-gtr-7 { grid-template-rows: auto auto auto auto auto auto auto; }
+	.xl-gtr-8 { grid-template-rows: auto auto auto auto auto auto auto auto; }
+	.xl-gtr-9 { grid-template-rows: auto auto auto auto auto auto auto auto auto; }
+	.xl-gtr-10 { grid-template-rows: auto auto auto auto auto auto auto auto auto auto; }
+	.xl-gtr-11 { grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto; }
+	.xl-gtr-12 { grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto auto; }
+	
+	.xl-gcs-a { grid-column-start: auto; }
+	.xl-gcs-1 { grid-column-start: 1; }
+	.xl-gcs-2 { grid-column-start: 2; }
+	.xl-gcs-3 { grid-column-start: 3; }
+	.xl-gcs-4 { grid-column-start: 4; }
+	.xl-gcs-5 { grid-column-start: 5; }
+	.xl-gcs-6 { grid-column-start: 6; }
+	.xl-gcs-7 { grid-column-start: 7; }
+	.xl-gcs-8 { grid-column-start: 8; }
+	.xl-gcs-9 { grid-column-start: 9; }
+	.xl-gcs-10 { grid-column-start: 10; }
+	.xl-gcs-11 { grid-column-start: 11; }
+	.xl-gcs-12 { grid-column-start: 12; }
+	
+	.xl-gce-a { grid-column-end: auto; }
+	.xl-gce-1 { grid-column-end: 1; }
+	.xl-gce-2 { grid-column-end: 2; }
+	.xl-gce-3 { grid-column-end: 3; }
+	.xl-gce-4 { grid-column-end: 4; }
+	.xl-gce-5 { grid-column-end: 5; }
+	.xl-gce-6 { grid-column-end: 6; }
+	.xl-gce-7 { grid-column-end: 7; }
+	.xl-gce-8 { grid-column-end: 8; }
+	.xl-gce-9 { grid-column-end: 9; }
+	.xl-gce-10 { grid-column-end: 10; }
+	.xl-gce-11 { grid-column-end: 11; }
+	.xl-gce-12 { grid-column-end: 12; }
+	
+	.xl-gces-a { grid-column-end: span auto; }
+	.xl-gces-1 { grid-column-end: span 1; }
+	.xl-gces-2 { grid-column-end: span 2; }
+	.xl-gces-3 { grid-column-end: span 3; }
+	.xl-gces-4 { grid-column-end: span 4; }
+	.xl-gces-5 { grid-column-end: span 5; }
+	.xl-gces-6 { grid-column-end: span 6; }
+	.xl-gces-7 { grid-column-end: span 7; }
+	.xl-gces-8 { grid-column-end: span 8; }
+	.xl-gces-9 { grid-column-end: span 9; }
+	.xl-gces-10 { grid-column-end: span 10; }
+	.xl-gces-11 { grid-column-end: span 11; }
+	.xl-gces-12 { grid-column-end: span 12; }
+	
+	.xl-grs-a { grid-row-start: auto; }
+	.xl-grs-1 { grid-row-start: 1; }
+	.xl-grs-2 { grid-row-start: 2; }
+	.xl-grs-3 { grid-row-start: 3; }
+	.xl-grs-4 { grid-row-start: 4; }
+	.xl-grs-5 { grid-row-start: 5; }
+	.xl-grs-6 { grid-row-start: 6; }
+	.xl-grs-7 { grid-row-start: 7; }
+	.xl-grs-8 { grid-row-start: 8; }
+	.xl-grs-9 { grid-row-start: 9; }
+	.xl-grs-10 { grid-row-start: 10; }
+	.xl-grs-11 { grid-row-start: 11; }
+	.xl-grs-12 { grid-row-start: 12; }
+	
+	.xl-gre-a { grid-row-end: auto; }
+	.xl-gre-1 { grid-row-end: 1; }
+	.xl-gre-2 { grid-row-end: 2; }
+	.xl-gre-3 { grid-row-end: 3; }
+	.xl-gre-4 { grid-row-end: 4; }
+	.xl-gre-5 { grid-row-end: 5; }
+	.xl-gre-6 { grid-row-end: 6; }
+	.xl-gre-7 { grid-row-end: 7; }
+	.xl-gre-8 { grid-row-end: 8; }
+	.xl-gre-9 { grid-row-end: 9; }
+	.xl-gre-10 { grid-row-end: 10; }
+	.xl-gre-11 { grid-row-end: 11; }
+	.xl-gre-12 { grid-row-end: 12; }
+	
+	.xl-gres-a { grid-row-end: span auto; }
+	.xl-gres-1 { grid-row-end: span 1; }
+	.xl-gres-2 { grid-row-end: span 2; }
+	.xl-gres-3 { grid-row-end: span 3; }
+	.xl-gres-4 { grid-row-end: span 4; }
+	.xl-gres-5 { grid-row-end: span 5; }
+	.xl-gres-6 { grid-row-end: span 6; }
+	.xl-gres-7 { grid-row-end: span 7; }
+	.xl-gres-8 { grid-row-end: span 8; }
+	.xl-gres-9 { grid-row-end: span 9; }
+	.xl-gres-10 { grid-row-end: span 10; }
+	.xl-gres-11 { grid-row-end: span 11; }
+	.xl-gres-12 { grid-row-end: span 12; }
+}

@@ -1,0 +1,94 @@
+/* Extra Large */
+@media only screen and (min-width: 1200px) {
+	.xl-aspr-1 { aspect-ratio: 1/1; }
+	.xl-aspr-1x1 { aspect-ratio: 1/1; }
+	
+	.xl-b-n { border: none; }
+	
+	.xl-bsh-n { box-shadow: none; }
+	
+	.xl-d-f { display: flex; }
+	.xl-d-i { display: inline; }
+	.xl-d-b { display: block; }
+	.xl-d-n { display: none; }
+	.xl-d-us { display: unset; }
+	
+	.xl-f-1 { flex: 1; }
+	
+	.xl-fs-16 { font-size: 16px; } .fs-17 { font-size: 17px; } .fs-18 { font-size: 18px; }
+	.xl-fs-19 { font-size: 19px; } .fs-20 { font-size: 20px; } .fs-21 { font-size: 21px; }
+	.xl-fs-22 { font-size: 22px; } .fs-23 { font-size: 23px; } .fs-24 { font-size: 24px; }
+	.xl-fs-25 { font-size: 25px; } .fs-26 { font-size: 26px; } .fs-27 { font-size: 27px; }
+	.xl-fs-28 { font-size: 28px; } .fs-29 { font-size: 29px; } .fs-30 { font-size: 30px; }
+	
+	.xl-fw-1 { font-weight: 100; }
+	.xl-fw-2 { font-weight: 200; }
+	.xl-fw-3 { font-weight: 300; }
+	.xl-fw-4 { font-weight: 400; }
+	.xl-fw-5 { font-weight: 500; }
+	.xl-fw-6 { font-weight: 600; }
+	.xl-fw-7 { font-weight: 700; }
+	.xl-fw-8 { font-weight: 800; }
+	.xl-fw-9 { font-weight: 900; }
+	.xl-fw-b { font-weight: bold; }
+	.xl-fw-bd { font-weight: bolder; }
+	.xl-fw-lt { font-weight: lighter; }
+	.xl-fw-n { font-weight: normal; }
+	
+	.xl-h-0 { height: 0px; }
+	.xl-h-fc { height: fit-content; }
+	.xl-h-100p { height: 100%; }
+	
+	.xl-mxh-0 { max-height: 0px; }
+	.xl-mxh-100p { max-height: 100%; }
+	.xl-mxh-fc { max-height: fit-content; }
+	.xl-mxw-0 { max-width:0px; }
+	.xl-mxw-100p { max-width: 100%; }
+	.xl-mxw-fc { max-width: fit-content; }
+	
+	.xl-mnh-0 { min-height: 0px; }
+	.xl-mnh-100p { min-height: 100%; }
+	.xl-mnh-fc { min-height: fit-content; }
+	.xl-mnw-0 { min-width:0px; }
+	.xl-mnw-100p { min-width: 100%; }
+	.xl-mnw-fc { min-width: fit-content; }
+	
+	.xl-o-n { outline: none; }
+	.xl-op-0 { opacity: 0; }
+	.xl-op-1 { opacity: 1; }
+	
+	.xl-s-0 {
+	  width: 0px;
+	  height: 0px;
+	}
+	.xl-s-100p {
+	  width: 100%;
+	  height: 100%;
+	}
+	.xl-s-fc {
+	  width: fit-content;
+	  height: fit-content;
+	}
+	
+	.xl-t-0 { top: 0px; }
+	.xl-l-0 { left: 0px; }
+	.xl-b-0 { bottom: 0px; }
+	.xl-r-0 { right: 0px; }
+	
+	.xl-t-100p { top: 100%; }
+	.xl-l-100p { left: 100%; }
+	.xl-b-100p { bottom: 100%; }
+	.xl-r-100p { right: 100%; }
+	
+	.xl-ta-c { text-align: center; }
+	.xl-ta-e { text-align: end; }
+	.xl-ta-s { text-align: start; }
+	
+	.xl-v-h { visibility: hidden; }
+	.xl-v-v { visibility: visible; }
+	.xl-v-c { visibility: collapse; }
+	
+	.xl-w-0 { width: 0px; }
+	.xl-w-fc { width: fit-content; }
+	.xl-w-100p { width: 100%; }
+}

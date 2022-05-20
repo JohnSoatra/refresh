@@ -1,0 +1,40 @@
+/* rectangle */
+.rec {
+    aspect-ratio: 2 / 1;
+    height: 16px;
+    fill: blue;
+}
+.rec > svg { overflow: visible; }
+.rec[up] { transform: rotate(0deg); }
+.rec[down] { transform: rotate(180deg); }
+.rec[left] { transform: rotate(-90deg); }
+.rec[right] { transform: rotate(90deg); }
+
+/* triangle */
+.tri {
+    aspect-ratio: 1.1547 / 1;
+    height: 16px;
+    stroke-linejoin: round;
+    fill: blue;
+}
+.tri > svg { overflow: visible; }
+.tri[up] { transform: rotate(0deg); }
+.tri[down] { transform: rotate(180deg); }
+.tri[left] { transform: rotate(-90deg); }
+.tri[right] { transform: rotate(90deg); }
+
+/* square */
+.squ {
+    aspect-ratio: 1 / 1;
+    height: 16px;
+    fill: blue;
+}
+.squ > svg { overflow: visible; }
+
+/* circle */
+.cir {
+    aspect-ratio: 1 / 1;
+    height: 16px;
+    fill: blue;
+}
+.cir > svg { overflow: visible; }

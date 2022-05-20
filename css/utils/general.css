@@ -1,0 +1,119 @@
+.bs-n { border-style: none; }
+.bs-g { border-style: groove; }
+.bs-s { border-style: solid; }
+.bs-ds { border-style: dashed; }
+.bs-dt { border-style: dotted; }
+.bs-db { border-style: double; }
+
+.bls-ds { border-left-style: dashed; }
+.bls-dt { border-left-style: dotted; }
+.bls-db { border-left-style: double; }
+.bls-g { border-left-style: groove; }
+.bls-n { border-left-style: none; }
+.bls-s { border-left-style: solid; }
+
+.brs-n { border-right-style: none; }
+.brs-g { border-right-style: groove; }
+.brs-s { border-right-style: solid; }
+.brs-ds { border-right-style: dashed; }
+.brs-dt { border-right-style: dotted; }
+.brs-db { border-right-style: double; }
+
+.bbs-n { border-bottom-style: none; }
+.bbs-g { border-bottom-style: groove; }
+.bbs-s { border-bottom-style: solid; }
+.bbs-ds { border-bottom-style: dashed; }
+.bbs-dt { border-bottom-style: dotted; }
+.bbs-db { border-bottom-style: double; }
+
+.bts-n { border-top-style: none; }
+.bts-g { border-top-style: groove; }
+.bts-s { border-top-style: solid; }
+.bts-ds { border-top-style: dashed; }
+.bts-dt { border-top-style: dotted; }
+.bts-db { border-top-style: double; }
+
+.bsz-bb { box-sizing: border-box; }
+.bsz-cb { box-sizing: content-box; }
+
+.cs-n { cursor: none; }
+.cs-d { cursor: default; }
+.cs-p { cursor: pointer; }
+.cs-t { cursor: text; }
+
+.fir-eo { fill-rule: evenodd; }
+.fir-nz { fill-rule: nonzero; }
+
+.ff-en { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; }
+.ff-kh { font-family: "nokora", "hanuman", content; }
+.ff-fas { font-family: "FontAwesome"; }
+
+.ls-n { list-style: none; }
+.ls-d { list-style: disc; }
+.ls-c { list-style: circle; }
+
+.os-n { outline-style: none; }
+.os-g { outline-style: groove; }
+.os-s { outline-style: solid; }
+.os-ds { outline-style: dashed; }
+.os-dt { outline-style: dotted; }
+.os-db { outline-style: double; }
+
+.of-a { overflow: auto; }
+.of-s { overflow: scroll; }
+.of-h { overflow: hidden; }
+.of-v { overflow: visible; }
+
+.ofx-a { overflow-x: auto; }
+.ofx-s { overflow-x: scroll; }
+.ofx-h { overflow-x: hidden; }
+.ofx-v { overflow-x: visible; }
+
+.ofy-a { overflow-y: auto; }
+.ofy-s { overflow-y: scroll; }
+.ofy-h { overflow-y: hidden; }
+.ofy-v { overflow-y: visible; }
+
+.pe-n { pointer-events: none; }
+.pe-u { pointer-events: unset; }
+
+.pos-a { position: absolute; }
+.pos-f { position: fixed; }
+.pos-r { position: relative; }
+.pos-st { position: static; }
+.pos-sk { position: sticky; }
+
+.stlj-b { stroke-linejoin: bevel; }
+.stlj-m { stroke-linejoin: miter; }
+.stlj-r { stroke-linejoin: round; }
+
+.stlc-b { stroke-linecap: butt; }
+.stlc-s { stroke-linecap: square; }
+.stlc-r { stroke-linecap: round; }
+
+.td-n { text-decoration: none; }
+.td-u { text-decoration: underline; }
+
+.tt-c { text-transform: capitalize; }
+.tt-u { text-transform: uppercase; }
+.tt-l { text-transform: lowercase; }
+.tt-n { text-transform: none; }
+
+.tof-e { text-overflow: ellipsis; }
+.tof-c { text-overflow: clip; }
+
+.tstf-e { transition-timing-function: ease; }
+.tstf-ei { transition-timing-function: ease-in; }
+.tstf-eo { transition-timing-function: ease-out; }
+.tstf-eio { transition-timing-function: ease-in-out; }
+.tstf-l { transition-timing-function: linear; }
+.tstf-ss { transition-timing-function: step-start; }
+.tstf-se { transition-timing-function: step-end; }
+
+.ws-n { white-space: normal; }
+.ws-nw { white-space: nowrap; }
+.ws-p { white-space: pre; }
+.ws-pl { white-space: pre-line; }
+.ws-pw { white-space: pre-wrap; }
+
+.z-1 { z-index: 1; }
