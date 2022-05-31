@@ -54,7 +54,12 @@ import {
     validatePosition,
     getShow,
     getHide,
-    getPosto
+    getPosto,
+    valueSplitter,
+    isPosition,
+    tranInToClass,
+    tranOutToClass,
+    tranProps
 } from "./helpers.js";
 import { 
     Transition
@@ -91,16 +96,16 @@ let forToast = "";
 let forTitle = "";
 
 window.addEventListener("resize", () => {
-    hideDialogs();
-    hideMenus();
-    hidePopups();
-    hideToasts();
+    repositionPopups(Dialog);
+    repositionPopups(Toast);
+    repositionPopups(Menu);
+    repositionCustomPopup(Popup);
     applyCssResponser();
 });
 document.addEventListener("click", () => {
+    tranOut(Dialog);
     tranOut(Menu);
     tranOutPopup();
-    tranOut(Dialog);
 });
 
 refresher();
@@ -150,6 +155,9 @@ function refresher() {
     shapeWork(Rectangle, pathRectangle, svgRectangle);
     shapeWork(Square, pathSquare, svgSquare);
     shapeWork(Circle, pathCircle, svgCircle);
+
+    // menu arrow
+    menuArrowWork();
     
     // class
     if (changeClass()) {
@@ -171,7 +179,7 @@ function applyCss() {
         );
     }
     if (!changeClass()) styles.push(selectorCreator("html", {"visibility": "initial"}));
-    stylePicker(Modifier).innerHTML = styles.join("");;
+    stylePicker(Modifier).innerHTML = styles.join("");
 }
 
 function applyCssResponser() {
@@ -215,10 +223,9 @@ function dialogWork() {
         const target = document.getElementById(id);
         if (target) {
             validatePosition(element, [CenterHorizontal, CenterVertical]);
-            samePopupWork(element);
+            samePopupWork(element, Dialog, id);
             element.onclick = evt => evt.stopPropagation();
             document.querySelectorAll(`.${Dialog}[for='${id}'] [close]`).forEach(child => {
-                child.ontransitionend = (evt) => evt.stopPropagation();
                 child.onclick = () => tranOut(Dialog);
             });
             const listener = evt => {
@@ -226,11 +233,29 @@ function dialogWork() {
                     evt.stopPropagation();
                     const rect = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
                     const positions = element.getAttribute(Position).split(" ");
-                    element.classList.add("v-v");
-                    const leftTop = getLeftTop(element, rect, positions);
-                    element.style.left = leftTop.left + "px";
-                    element.style.top = leftTop.top + "px";
-                    element.style.opacity = 1;
+                    
+                    let i = 0;
+                    const classesIn = tranInToClass(element.getAttribute(Tran_In));
+                    element.style.transitionDuration = "1ms";
+                    element.classList.add(...classesIn);
+                    const props = tranProps(classesIn);
+
+                    element.ontransitionend = () => {
+                        if (i === props.length - 1) {
+                            element.ontransitionend = null;
+                            element.style.transitionDuration = null;
+                            element.classList.add("v-v");
+                            const leftTop = getLeftTop(element, rect, positions);
+                            element.style.left = leftTop.left + "px";
+                            element.style.top = leftTop.top + "px";
+                            element.classList.remove(...classesIn);
+                            element.ontransitionend = () => {
+                                element.ontransitionend = null;
+                                element.style.pointerEvents = null;
+                            }
+                        }
+                        i ++;
+                    }
                 }
             }
             const listenerName = `${id}-${Dialog}`;
@@ -247,26 +272,40 @@ function menuWork() {
         const target = document.getElementById(id);
         if (target) {
             validatePosition(element, [RightLeft, Bottom]);
-            samePopupWork(element);
+            samePopupWork(element, Menu, id);
             element.onclick = evt => evt.stopPropagation();
-            document.querySelectorAll(`.${Menu}[for='${id}'] button`).forEach(child => {
-                child.ontransitionend = (evt) => evt.stopPropagation();
-                child.onclick = () => {
-                    if (child.getAttribute("no-close") === null) {
-                        tranOut(Menu);
-                    }
-                }
+            document.querySelectorAll(`.${Menu}[for='${id}'] button[item]`).forEach(child => {
+                child.onclick = () => tranOut(Menu);
             });
             const listener = evt => {
-                if (!element.classList.contains("v-v") || element.style.opacity === "0") {
+                if (!element.classList.contains("v-v")) {
                     evt.stopPropagation();
                     const rect = target.getBoundingClientRect();
                     const positions = element.getAttribute(Position).split(" ");
-                    element.classList.add("v-v");
-                    const leftTop = getLeftTop(element, rect, positions);
-                    element.style.left = leftTop.left + "px";
-                    element.style.top = leftTop.top + "px";
-                    element.style.opacity = 1;
+                    
+                    let i = 0;
+                    const classesIn = tranInToClass(element.getAttribute(Tran_In));
+                    element.style.transitionDuration = "1ms";
+                    element.classList.add(...classesIn);
+                    const props = tranProps(classesIn);
+
+                    element.ontransitionend = (evt) => {
+                        console.log(evt.propertyName)
+                        if (i === props.length - 1) {
+                            element.ontransitionend = null;
+                            element.style.transitionDuration = null;
+                            element.classList.add("v-v");
+                            const leftTop = getLeftTop(element, rect, positions);
+                            element.style.left = leftTop.left + "px";
+                            element.style.top = leftTop.top + "px";
+                            element.classList.remove(...classesIn);
+                            element.ontransitionend = () => {
+                                element.ontransitionend = null;
+                                element.style.pointerEvents = null;
+                            }
+                        }
+                        i ++;
+                    }
                 }
             }
             const listenerName = `${id}-${Menu}`;
@@ -292,7 +331,7 @@ function popupWork() {
                     [CenterHorizontal, CenterVertical] :
                     [RightLeft, Bottom]
             );
-            samePopupWork(element);
+            samePopupWork(element, Popup, id);
             element.onclick = evt => evt.stopPropagation();
             document.querySelectorAll(`.${Popup}[for='${id}'] [close]`).forEach(child => {
                 child.ontransitionend = (evt) => evt.stopPropagation();
@@ -347,7 +386,7 @@ function titleWork() {
         const target = document.getElementById(id);
         if (target) {
             validatePosition(element, [RightLeft, Bottom]);
-            samePopupWork(element);
+            samePopupWork(element, Title, id);
             const pointerEnter = evt => {
                 if (evt.pointerType === 'mouse' && (!element.classList.contains("v-v") || element.style.opacity === "0")) {
                     const rect = target.getBoundingClientRect();
@@ -401,7 +440,7 @@ function toastWork() {
         const target = document.getElementById(id);
         if (target) {
             validatePosition(element, [CenterHorizontal, Top]);
-            samePopupWork(element);
+            samePopupWork(element, Toast, id);
             document.querySelectorAll(`.${Toast}[for='${id}'] [close]`).forEach(child => {
                 child.ontransitionend = (evt) => evt.stopPropagation();
                 child.onclick = (evt) => {
@@ -448,29 +487,54 @@ function toastWork() {
     });
 }
 
-function samePopupWork(element) {
-    element.style.opacity = 0;
-    const duration = element.getAttribute("tran-du");
-    if (duration) { 
-        element.classList.add(`tsdu-${duration}`);
-        element.removeAttribute("tran-du");
-    }
+function samePopupWork(element, item, id) {
+    element.style.pointerEvents = "none";
+    document.querySelectorAll(`.${item}[for='${id}'] *`).forEach(child => {
+        child.ontransitionend = (evt) => evt.stopPropagation();
+    });
 }
 
-function shapeWork(item, path, svg) {
+function shapeWork(item, path, svgContent) {
     document.querySelectorAll(`.${item}`).forEach(element => {
-        const _svg = element.children.item(0);
-        if (_svg) {
-            const _path = _svg.children.item(0);
+        const svgElement = element.children.item(0);
+        if (svgElement) {
+            const _path = svgElement.children.item(0);
+            const move = element.getAttribute("mv");
             if (_path) {
                 if (_path.getAttribute("d") !== path) {
-                    element.innerHTML = svg;
+                    _path.setAttribute("d", path);
+                }
+            } else element.innerHTML = svgContent;
+            if (move) {
+                const _move = valueSplitter(move, " ");
+                let mvString = "";
+                _move.forEach(mv => {
+                    if (isPosition(mv)) mvString += mv + " ";
+                });
+                mvString = mvString.trimEnd();
+                if (svgElement.getAttribute("class") !== mvString) {
+                    svgElement.setAttribute("class", mvString);
                 }
             } else {
-                element.innerHTML = svg;
+                svgElement.removeAttribute("class");
             }
         } else {
-            element.innerHTML = svg;
+            element.innerHTML = svgContent;
+        }
+    });
+}
+
+function menuArrowWork() {
+    document.querySelectorAll(`.${Menu}`).forEach(menu => {
+        const firstChild = menu.firstElementChild;
+        if (menu.getAttribute("arrow") !== null) {
+            if (!firstChild.classList.contains("tri")) {
+                const div = document.createElement("div");
+                div.className = "tri";
+                menu.prepend(div);
+            }
+        } else if (firstChild.classList.contains("tri")) {
+            menu.removeChild(firstChild);
         }
     });
 }
@@ -511,15 +575,53 @@ function hideToasts() {
     });
 }
 
+function repositionPopups(item) {
+    document.querySelectorAll(`.${item}[for]`).forEach(element => {
+        if (element.classList.contains("v-v")) {
+            const id = element.getAttribute("for");
+            const target = document.getElementById(id);
+            if (target) {
+                const rect = target.getBoundingClientRect();
+                const positions = element.getAttribute(Position).split(" ");
+                const leftTop = getLeftTop(element, rect, positions);
+                element.style.left = leftTop.left + "px";
+                element.style.top = leftTop.top + "px";
+            }
+        }
+    });
+}
+
+function repositionCustomPopup(item) {
+    document.querySelectorAll(`.${item}[for]`).forEach(element => {
+        if (element.classList.contains("v-v")) {
+            const id = element.getAttribute(For);
+            const posto = element.getAttribute(Posto) || Target;
+            const show = getShow(element);
+            const hide = getHide(element);
+            const targetEvent = document.getElementById(id);
+            const targetPosition = getPosto(posto, targetEvent);
+            if (show && hide && targetEvent && targetPosition) {
+                const rect = targetPosition.getBoundingClientRect();
+                const positions = element.getAttribute(Position).split(" ");
+                const leftTop = getLeftTop(element, rect, positions);
+                element.style.left = leftTop.left + "px";
+                element.style.top = leftTop.top + "px";
+            }
+        }
+    });
+}
+
 function tranOut(item) {
     document.querySelectorAll(`.${item}`).forEach(element => {
-        if (element.classList.contains("v-v")|| element.style.opacity === "1") {
-            element.style.opacity = 0;
+        if (element.classList.contains("v-v")) {
+            const classesOut = tranOutToClass(element.getAttribute(Tran_Out));
+            element.style.pointerEvents = "none";
+            element.classList.add(...classesOut);
             element.ontransitionend = () => {
                 element.ontransitionend = null;
-                element.style.top = null;
-                element.style.left = null;
-                element.classList.remove("v-v");
+                element.style.top = window.innerHeight + "px";
+                element.style.left = window.innerWidth + "px";
+                element.classList.remove("v-v", ...classesOut);
             }
         }
     });

@@ -10,10 +10,8 @@
 }
 
 .menu {
-    display: flex;
-    flex-direction: column;
-    min-width: 150px;
     outline: 1px solid var(--menu-outline-color);
+    padding: 8px 5px;
     border-radius: var(--border-radius);
     white-space: nowrap;
     color: var(--menu-text-color);
@@ -25,9 +23,9 @@
     outline: 1px solid var(--popup-outline-color);
     padding: 10px 20px;
     border-radius: var(--border-radius);
+    white-space: nowrap;
     color: var(--popup-text-color);
     background-color: var(--popup-background-color);
-    white-space: nowrap;
     transition-duration: 200ms;
 }
 
@@ -62,81 +60,12 @@
 .popup,
 .title,
 .toast {
+    max-width: 100%;
+    max-height: 100%;
     visibility: hidden;
     position: fixed;
     z-index: 100;
-    transition-property: transform, opacity;
+    overflow: hidden;
     transition-timing-function: linear;
-    transition-property: opacity, transform;
+    transition-property: opacity, transform, max-width, max-height;
 }
-
-.dialog button {
-    border-radius: var(--dialog-button-border-radius);
-    background-color: var(--dialog-button-background-color);
-    outline-color: var(--dialog-button-outline-color);
-}
-
-.toast > button {
-    border-radius: var(--toast-button-border-radius);
-    outline-color: var(--toast-button-outline-color);
-    color: var(--toast-text-color);
-    background-color: transparent;
-    box-shadow: 0px 1px 2.5px 0px var(--toast-button-box-shadow-color);
-}
-
-.toast > button:not([disabled]):active {
-    box-shadow: 0px 0px 2px 3px var(--toast-button-box-shadow-active-color);
-}
-
-.toast > button:not([disabled]):focus {
-    outline: 2px solid var(--toast-button-outline-focus-color);
-}
-
-.menu > button:not([disabled]):not([no-close]) {
-    width: 100%;
-}
-
-.menu > button:not([disabled]):not([no-close]):hover {
-    outline: 2px solid var(--primary-color);
-}
-.menu[pos~="t"][pos~="ch"],
-.menu[pos~="tb"][pos~="ch"] {
-    box-shadow: 0px -5px 6px 2px var(--menu-box-shadow-color);
-}
-.menu[pos~="t"][pos~="l"],
-.menu[pos~="t"][pos~="lr"],
-.menu[pos~="tb"][pos~="l"] .menu[pos~="tb"][pos~="lr"] {
-    box-shadow: -5px -5px 6px 2px var(--menu-box-shadow-color);
-}
-.menu[pos~="t"][pos~="r"],
-.menu[pos~="t"][pos~="rl"],
-.menu[pos~="tb"][pos~="r"] .menu[pos~="tb"][pos~="rl"] {
-    box-shadow: 5px -5px 6px 2px var(--menu-box-shadow-color);
-}
-.menu[pos~="b"][pos~="ch"],
-.menu[pos~="bt"][pos~="ch"] {
-    box-shadow: 0px 5px 6px 2px var(--menu-box-shadow-color);
-}
-.menu[pos~="b"][pos~="l"],
-.menu[pos~="b"][pos~="lr"],
-.menu[pos~="bt"][pos~="l"] .menu[pos~="bt"][pos~="lr"] {
-    box-shadow: -5px 5px 6px 2px var(--menu-box-shadow-color);
-}
-.menu[pos~="b"][pos~="r"],
-.menu[pos~="b"][pos~="rl"],
-.menu[pos~="bt"][pos~="r"] .menu[pos~="bt"][pos~="rl"] {
-    box-shadow: 5px 5px 6px 2px var(--menu-box-shadow-color);
-}
-.menu[pos~="cv"][pos~="ch"] {
-    box-shadow: 0px 0px 6px 2px var(--menu-box-shadow-color);
-}
-.menu[pos~="cv"][pos~="l"],
-.menu[pos~="cv"][pos~="lr"] {
-    box-shadow: -5px 0px 6px 2px var(--menu-box-shadow-color);
-}
-.menu[pos~="cv"][pos~="r"],
-.menu[pos~="cv"][pos~="rl"] {
-    box-shadow: 5px 0px 6px 2px var(--menu-box-shadow-color);
-}
-
-.popup[hide~="leave"] { pointer-events: none; }

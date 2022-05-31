@@ -1,10 +1,12 @@
 /* rectangle */
 .rec {
     aspect-ratio: 2 / 1;
-    height: 16px;
-    fill: blue;
+    fill: var(--primary-color);
 }
-.rec > svg { overflow: visible; }
+.rec > svg {
+    overflow: visible;
+    position: absolute;
+}
 .rec[up] { transform: rotate(0deg); }
 .rec[down] { transform: rotate(180deg); }
 .rec[left] { transform: rotate(-90deg); }
@@ -12,12 +14,13 @@
 
 /* triangle */
 .tri {
-    aspect-ratio: 1.1547 / 1;
-    height: 16px;
-    stroke-linejoin: round;
-    fill: blue;
+    aspect-ratio: 1 / 1;
+    fill: var(--primary-color);
 }
-.tri > svg { overflow: visible; }
+.tri > svg { 
+    overflow: visible;
+    position: absolute;
+}
 .tri[up] { transform: rotate(0deg); }
 .tri[down] { transform: rotate(180deg); }
 .tri[left] { transform: rotate(-90deg); }
@@ -26,15 +29,19 @@
 /* square */
 .squ {
     aspect-ratio: 1 / 1;
-    height: 16px;
-    fill: blue;
+    fill: var(--primary-color);
 }
-.squ > svg { overflow: visible; }
+.squ > svg { 
+    overflow: visible;
+    position: absolute;
+}
 
 /* circle */
 .cir {
     aspect-ratio: 1 / 1;
-    height: 16px;
-    fill: blue;
+    fill: var(--primary-color);
 }
-.cir > svg { overflow: visible; }
+.cir > svg { 
+    overflow: visible;
+    position: absolute;
+}

@@ -39,6 +39,9 @@ import {
     pairRadialShape,
     pairRadialSize,
     pairTimingFunction,
+    pairTranIn,
+    pairTranOut,
+    pairTransform,
     postos,
     shows,
 } from "./pairs.js";
@@ -62,6 +65,16 @@ function isColor(value) {
 
 function isAspectRatio(short) {
     return short === "aspr-" || short.endsWith("-aspr-");
+}
+
+function isClipPath(short) {
+    return (
+        short === "cpi-" || short.endsWith("-cpi-")
+    );
+}
+
+function isSlideScale(short) {
+    return short.startsWith("sl") || short.startsWith("sc");
 }
 
 function isSize(short) { 
@@ -129,6 +142,28 @@ function isStrokeDashArray(short) {
     );
 }
 
+function isPosition(short) {
+    return (
+        short.startsWith("t-") || short.endsWith("-t-") ||
+        short.startsWith("l-") || short.endsWith("-l-") ||
+        short.startsWith("b-") || short.endsWith("-b-") ||
+        short.startsWith("r-") || short.endsWith("-r-")
+    );
+}
+
+
+function isRotateTransform(short) {
+    return (short === "tfr" || short === "tfrx" || short === "tfry" || short === "tfrz");
+}
+
+function isTranslateTransform(short) {
+    return (short === "tft" || short === "tftx" || short === "tfty" || short === "tftz");
+}
+
+function isRawTransform(short) {
+    return (short === "tf-" || short.endsWith("-tf-"));
+}
+
 function isTransform(short) {
     return (
         short === "tfr-" || short.endsWith("-tfr-") ||
@@ -194,11 +229,7 @@ function transformValue(short, value, dimen) {
     // scale
     if (short === "tfs-" || short.endsWith("-tfs-")) {
         const trs_slices = valueSplitter(value);
-        if (trs_slices.length < 2) {
-            return null;
-        } else {
-            return `scale(${trs_slices[0]},${trs_slices[1]})`;
-        }
+        return `scale(${trs_slices[0]},${trs_slices[1] || 1})`;
     } else if (short === "tfsx-" || short.endsWith("-tfsx-")) {
         return `scaleX(${value})`;
     } else if (short === "tfsy-" || short.endsWith("-tfsy-")) {
@@ -210,13 +241,10 @@ function transformValue(short, value, dimen) {
     // translate
     if (short === "tft-" || short.endsWith("-tft-")) {
         const slices = valueSplitter(value);
-        if (slices.length < 2) {
-            return null;
-        } else {
-            const value1 = isNumber(slices[0]) ? slices[0] + dimen : slices[0];
-            const value2 = isNumber(slices[1]) ? slices[1] + dimen : slices[1];
-            return `translate(${value1},${value2})`;
-        }
+        const value1 = isNumber(slices[0]) ? slices[0] + dimen : slices[0];
+        const slide1 = slices[1] || 0;
+        const value2 = isNumber(slide1) ? slide1 + dimen : slide1;
+        return `translate(${value1},${value2})`;
     } else if (short === "tftx-" || short.endsWith("-tftx-")) {
         return isNumber(value) ? `translateX(${value}${dimen})` : `translateX(${value})`;
     } else if (short === "tfty-" || short.endsWith("-tfty-")) {
@@ -224,6 +252,45 @@ function transformValue(short, value, dimen) {
     } else if (short === "tftz-" || short.endsWith("-tftz-")) {
         return isNumber(value) ? `translateZ(${value}${dimen})` : `translateZ(${value})`;
     }
+}
+
+function clipPathValue(short, value, dimen) {
+    // inset
+    if (short === "cpi-" || short.endsWith("-cpi-")) {
+        let result = "";
+        const slices = valueSplitter(value);
+        slices.forEach(slice => {
+            result += isNumber(slice) ? slice + dimen : slice + " ";
+        });
+        return `inset(${result.trimEnd()})`;
+    }
+}
+
+function rawTransformValue(value) {
+    let result = "";
+    const token = [];
+    const slices = valueSplitter(value);
+    for (let i = 0; i < slices.length; i ++) {
+        const slice = slices[i];
+        const sliceNext = slices[i+1];
+
+        if (slice in pairTransform) {
+            token.push(pairTransform[slice]);
+        } else if (isRotateTransform(token[0])) {
+            token.push(isNumber(slice) ? slice + "deg" : slice);
+        } else if (isTranslateTransform(token[0])) {
+            token.push(isNumber(slice) ? slice + "px" : slice);
+        } else {
+            token.push(slice);
+        }
+        if (sliceNext in pairTransform || i === slices.length - 1) {
+            if (isTransform(`${token[0]}-`)) {
+                result += transformValue(`${token[0]}-`, token.slice(1).join("-"));
+                token.splice(0);
+            } else return null;
+        }
+    }
+    return result;
 }
 
 function transitionValue(value, dimen) {
@@ -467,6 +534,9 @@ function validateValue(short, value, dimen) {
         return transitionValue(value, dimen);
     }
 
+    else if (isRawTransform(short)) {
+        return rawTransformValue(value);
+    }
     // transform
     else if (isTransform(short)) {
         return transformValue(short, value, dimen);
@@ -501,6 +571,9 @@ function validateValue(short, value, dimen) {
         return valueSplitter(value).join(",");
     }
 
+    else if (isClipPath(short)) {
+        return clipPathValue(short, value, dimen);
+    }
     // another
     else {
         return isNumber(value) ? value + dimen : value;
@@ -515,33 +588,37 @@ function applierClass(styles, short, nameDimen) {
         const value = getClassValue(` ${className} `, ` ${short}`);
         if (value && !pairExclude.includes(short + value)) {
             const validatedValue = validateValue(short, value, nameDimen[1]);
-            let props;
-            if (isSize(short)) {
-                if (isMinSize(short)) { 
+            if (validatedValue) {
+                let props;
+                if (isSize(short)) {
+                    if (isMinSize(short)) { 
+                        props = {
+                            [MinWidth]: validatedValue,
+                            [MinHeight]: validatedValue
+                        }
+                    }
+                    else if (isMaxSize(short)) {
+                        props = {
+                            [MaxWidth]: validatedValue,
+                            [MaxHeight]: validatedValue
+                        }
+                    }
+                    else { 
+                        props = {
+                            [Width]: validatedValue,
+                            [Height]: validatedValue
+                        }
+                    }
+                } else {
                     props = {
-                        [MinWidth]: validatedValue,
-                        [MinHeight]: validatedValue
+                        [nameDimen[0]]:  validatedValue
                     }
                 }
-                else if (isMaxSize(short)) {
-                    props = {
-                        [MaxWidth]: validatedValue,
-                        [MaxHeight]: validatedValue
-                    }
-                }
-                else { 
-                    props = {
-                        [Width]: validatedValue,
-                        [Height]: validatedValue
-                    }
-                }
-            } else {
-                props = {
-                    [nameDimen[0]]:  validatedValue
+                const style = selectorCreator("." + short + value, props);
+                if (!styles.includes(style)) { 
+                    styles.push(style);
                 }
             }
-            const style = selectorCreator("." + short + value, props);
-            if (!styles.includes(style)) { styles.push(style); }
         }
     });
 }
@@ -690,9 +767,52 @@ function selectorCreator(selector, pairs) {
     return selector + objectToSelector(pairs);
 }
 
+function tranInToClass(tranIn) {
+    let classes = [];
+    let trans = "tf-";
+    if (tranIn) {
+        valueSplitter(tranIn, " ").forEach(tran => {
+            const slices = valueSplitter(tran, "-");
+            const short = slices[0];
+            if (short in pairTranIn) {
+                if (isSlideScale(short)) {
+                    trans += `${pairTranIn[short]}${slices.slice(1).join("-")}-`;
+                } else {
+                    classes.push(`${pairTranIn[short]}${slices.slice(1).join("-")}`);
+                }
+            }
+        });
+    }
+    if (trans !== "tf-") classes.push(trans.slice(0, trans.length-1));
+    if (classes.length === 0) classes.push("op-0");
+    return classes;
+}
+
+function tranOutToClass(tranOut) {
+    let classes = [];
+    let trans = "tf-";
+    if (tranOut) {
+        valueSplitter(tranOut, " ").forEach(tran => {
+            const slices = valueSplitter(tran, "-");
+            const short = slices[0];
+            if (short in pairTranOut) {
+                if (isSlideScale(short)) {
+                    trans += `${pairTranOut[short]}${slices.slice(1).join("-")}-`;
+                    console.log(trans);
+                } else {
+                    classes.push(`${pairTranOut[short]}${slices.slice(1).join("-")}`);
+                }
+            }
+        });
+    }
+    if (trans !== "tf-") classes.push(trans.slice(0, trans.length - 1));
+    if (classes.length === 0) classes.push("op-0");
+    return classes;
+}
+
 function validatePosition(element, defaults) {
     const position = element.getAttribute("pos");
-    const positions = position ? valueSplitter(position) : null;
+    const positions = position ? valueSplitter(position, " ") : null;
     let hp = defaults[0];
     let vp = defaults[1];
     if (positions) {
@@ -712,6 +832,27 @@ function validatePosition(element, defaults) {
         }
     }
     element.setAttribute("pos", `${hp} ${vp}`);
+}
+
+function shortToProperty(shortValue) {
+    if (shortValue.startsWith("op-")) return ["opacity"];
+    if (shortValue.startsWith("tf-")) return ["transform"];
+    if (shortValue.startsWith("mxs-")) return ["max-width", "max-height"];
+    if (shortValue.startsWith("mxw-")) return ["max-width"];
+    if (shortValue.startsWith("mxh")) return ["max-height"];
+    else return null;
+}
+
+function tranProps(classes) {
+    const props = [];
+    classes.forEach(pair => {
+        shortToProperty(pair).forEach(prop => {
+            if (!props.includes(prop)) {
+                props.push(prop);
+            }
+        });
+    });
+    return props;
 }
 
 function valueSplitter(value, dimeter = "-") {
@@ -738,25 +879,6 @@ function valueSplitter(value, dimeter = "-") {
 
 // ---------------------------------
 
-export default {
-    getClassValue,
-    getSize,
-    getSizeDown,
-    getShow,
-    getHide,
-    getPosto,
-    validateValue,
-    stylePicker,
-    selectorCreator,
-    isSize,
-    isMinSize,
-    isMaxSize,
-    getLeftTop,
-    applierClass,
-    applierPseudo,
-    validatePosition
-}
-
 export {
     getClassValue,
     getSize,
@@ -773,5 +895,10 @@ export {
     getLeftTop,
     applierClass,
     applierPseudo,
-    validatePosition
+    validatePosition,
+    valueSplitter,
+    isPosition,
+    tranOutToClass,
+    tranInToClass,
+    tranProps
 }

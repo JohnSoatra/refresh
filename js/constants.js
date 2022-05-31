@@ -3,6 +3,7 @@ const regHex = /^([0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/;
 const regPoint = /p[0-9]/;
 const regWs = /\s/g;
 const regNewLine = /\n/g;
+
 const regPercentage = /([0-9]p$)|([0-9]p-)/;
 const regDegree = /([0-9]d$)|([0-9]d-)/;
 
@@ -78,8 +79,8 @@ const Target = "target";
 const Window = "window";
 
 // transition
-const Tran_In = "tran_in";
-const Tran_Out = "tran_out";
+const Tran_In = "tran-in";
+const Tran_Out = "tran-out";
 
 export default {
     regHex,

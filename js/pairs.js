@@ -326,6 +326,7 @@ const pairClass = {
     "gtr-": ["grid-template-rows", "fr"],
 
     // transform
+    "tf-": ["transform", ""],
     "tfr-": ["transform", "deg"],
     "tfrx-": ["transform", "deg"],
     "tfry-": ["transform", "deg"],
@@ -370,6 +371,9 @@ const pairClass = {
     // fill
     "fi-": ["fill", "#"],
     "fiop-": ["fill-opacity", ""],
+
+    // clip
+    "cpi-": ["clip-path", "px"],
 };
 
 const pairSize = {
@@ -736,10 +740,42 @@ const pairPseudo = {
     "fc-fbr-": ["filter", ""],
 };
 
-const pairTran = {
-    "fade": pairClass["op-"],
-    "pop": pairClass["tfs-"],
-    "slide": pairClass["tft-"]
+const pairTranIn = {
+    "ff": "op-",
+
+    "slf": "t-",
+    "slxf": "tx-",
+    "slyf": "ty-",
+    "slzf": "tz-",
+
+    "scf": "s-",
+    "scxf": "sx-",
+    "scyf": "sy-",
+    "sczf": "sz-",
+
+    "wf": "i-",
+    "wtf": "it-",
+    "wrf": "ir-",
+    "wbf": "ib-",
+    "wlf": "il-",
+};
+
+const pairTranOut = {
+    "ft": "op-",
+
+    "slt": "t-",
+    "slxt": "tx-",
+    "slyt": "ty-",
+    "slzt": "tz-",
+
+    "sct": "s-",
+    "scxt": "sx-",
+    "scyt": "sy-",
+    "sczt": "sz-",
+
+    "wt": "mxs-",
+    "wxt": "mxw-",
+    "wyt": "mxh-",
 };
 
 const pairTimingFunction = {
@@ -822,28 +858,26 @@ const pairRadialSize = {
     "fc": "farthest-corner"
 }
 
+const pairTransform = {
+    "r": "tfr",
+    "rx": "tfrx",
+    "ry": "tfry",
+    "rz": "tfrz",
+
+    "s": "tfs",
+    "sx": "tfsx",
+    "sy": "tfsy",
+    "sz": "tfsz",
+
+    "t": "tft",
+    "tx": "tftx",
+    "ty": "tfty",
+    "tz": "tftz",
+}
+
 const shows = [ "click", "hover" ];
 const hides = [ "click", "leave" ];
 const postos = [ "target", "window" ];
-
-export default {
-    shows,
-    hides,
-    postos,
-    pairExclude,
-    pairClass,
-    pairSize,
-    pairSizeDown,
-    pairPseudo,
-    pairTran,
-    pairTimingFunction,
-    pairProperty,
-    pairBorderStyle,
-    pairColor,
-    pairLinearPosition,
-    pairRadialShape,
-    pairRadialSize,
-}
 
 export {
     shows,
@@ -854,7 +888,8 @@ export {
     pairSize,
     pairSizeDown,
     pairPseudo,
-    pairTran,
+    pairTranIn,
+    pairTranOut,
     pairTimingFunction,
     pairProperty,
     pairBorderStyle,
@@ -862,4 +897,5 @@ export {
     pairLinearPosition,
     pairRadialShape,
     pairRadialSize,
+    pairTransform
 }

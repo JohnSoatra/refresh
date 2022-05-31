@@ -1,0 +1,195 @@
+/* menu extension */
+/* menu item */
+.menu button[item]:not([disabled]) {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    width: 100%;
+    padding: 2px 14px;
+    display: block;
+    text-align: start;
+    color: var(--menu-item-color);
+}
+
+.menu button[item]:not([disabled]):hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+.menu button[item]:not([disabled]):focus {
+    background-color: var(--primary75-color);
+    color: white;
+}
+
+/* menu box shadow */
+.menu[pos~="t"][pos~="ch"],
+.menu[pos~="tb"][pos~="ch"] {
+    box-shadow: 0px -5px 6px 2px var(--menu-box-shadow-color);
+}
+.menu[pos~="t"][pos~="l"],
+.menu[pos~="t"][pos~="lr"],
+.menu[pos~="tb"][pos~="l"],
+.menu[pos~="tb"][pos~="lr"] {
+    box-shadow: -5px -5px 6px 2px var(--menu-box-shadow-color);
+}
+.menu[pos~="t"][pos~="r"],
+.menu[pos~="t"][pos~="rl"],
+.menu[pos~="tb"][pos~="r"],
+.menu[pos~="tb"][pos~="rl"] {
+    box-shadow: 5px -5px 6px 2px var(--menu-box-shadow-color);
+}
+.menu[pos~="b"][pos~="ch"],
+.menu[pos~="bt"][pos~="ch"] {
+    box-shadow: 0px 5px 6px 2px var(--menu-box-shadow-color);
+}
+.menu[pos~="b"][pos~="l"],
+.menu[pos~="b"][pos~="lr"],
+.menu[pos~="bt"][pos~="l"],
+.menu[pos~="bt"][pos~="lr"] {
+    box-shadow: -5px 5px 6px 2px var(--menu-box-shadow-color);
+}
+.menu[pos~="b"][pos~="r"],
+.menu[pos~="b"][pos~="rl"],
+.menu[pos~="bt"][pos~="r"],
+.menu[pos~="bt"][pos~="rl"] {
+    box-shadow: 5px 5px 6px 2px var(--menu-box-shadow-color);
+}
+.menu[pos~="cv"][pos~="ch"] {
+    box-shadow: 0px 0px 6px 2px var(--menu-box-shadow-color);
+}
+.menu[pos~="cv"][pos~="l"],
+.menu[pos~="cv"][pos~="lr"] {
+    box-shadow: -5px 0px 6px 2px var(--menu-box-shadow-color);
+}
+.menu[pos~="cv"][pos~="r"],
+.menu[pos~="cv"][pos~="rl"] {
+    box-shadow: 5px 0px 6px 2px var(--menu-box-shadow-color);
+}
+
+/* menu arrow*/
+.menu[arrow] > .tri:first-child {
+    width: 16px;
+    position: absolute;
+    overflow: hidden;
+    stroke-width: 2px;
+    stroke: #353535;
+    fill: var(--menu-background-color);
+    /* background-color: pink; */
+}
+.menu[arrow] > .tri:first-child > svg { bottom: -2px }
+
+/* menu triangle */
+/* left */
+.menu[arrow][pos~='l'][pos~='bt'] > .tri:first-child {
+    top: 8px;
+    right: -16px;
+    transform: rotate(90deg);
+}
+.menu[arrow][pos~='l'][pos~='tb'] > .tri:first-child {
+    bottom: 8px;
+    right: -16px;
+    transform: rotate(90deg);
+}
+.menu[arrow][pos~='l'][pos~='cv'] > .tri:first-child {
+    top: 50%;
+    right: -16px;
+    transform: translate(0px, -50%) rotate(90deg);
+}
+/* right */
+.menu[arrow][pos~='r'][pos~='bt'] > .tri:first-child {
+    top: 8px;
+    left: -16px;
+    transform: rotate(-90deg);
+}
+.menu[arrow][pos~='r'][pos~='tb'] > .tri:first-child {
+    bottom: 8px;
+    left: -16px;
+    transform: rotate(-90deg);
+}
+.menu[arrow][pos~='r'][pos~='cv'] > .tri:first-child {
+    top: 50%;
+    left: -16px;
+    transform: translate(0px, -50%) rotate(-90deg);
+}
+/* top */
+.menu[arrow][pos~='t'][pos~='rl'] > .tri:first-child {
+    bottom: -16px;
+    left: 8px;
+    transform: rotate(180deg);
+}
+.menu[arrow][pos~='t'][pos~='lr'] > .tri:first-child {
+    bottom: -16px;
+    right: 8px;
+    transform: rotate(180deg);
+}
+.menu[arrow][pos~='t'][pos~='ch'] > .tri:first-child {
+    bottom: -16px;
+    left: 50%;
+    transform: translate(-50%, 0px) rotate(180deg);
+}
+/* bottom */
+.menu[arrow][pos~='b'][pos~='rl'] > .tri:first-child {
+    top: -16px;
+    left: 8px;
+}
+.menu[arrow][pos~='b'][pos~='lr'] > .tri:first-child {
+    top: -16px;
+    right: 8px;
+}
+.menu[arrow][pos~='b'][pos~='ch'] > .tri:first-child {
+    top: -16px;
+    left: 50%;
+    transform: translate(-50%, 0px);
+}
+
+/* menu margin */
+/* left */
+.menu[arrow][pos~='l'][pos~='bt'],
+.menu[arrow][pos~='l'][pos~='tb'],
+.menu[arrow][pos~='l'][pos~='cv'] {
+    margin-left: -16px;
+}
+/* right */
+.menu[arrow][pos~='r'][pos~='bt'],
+.menu[arrow][pos~='r'][pos~='tb'],
+.menu[arrow][pos~='r'][pos~='cv'] {
+    margin-left: 16px;
+}
+/* top */
+.menu[arrow][pos~='t'][pos~='rl'],
+.menu[arrow][pos~='t'][pos~='lr'],
+.menu[arrow][pos~='t'][pos~='ch'] {
+    margin-top: -16px;
+}
+/* bottom */
+.menu[arrow][pos~='b'][pos~='rl'],
+.menu[arrow][pos~='b'][pos~='lr'],
+.menu[arrow][pos~='b'][pos~='ch'] {
+    margin-top: 16px;
+}
+
+/* toast extensions */
+.toast > button {
+    border-radius: var(--toast-button-border-radius);
+    outline-color: var(--toast-button-outline-color);
+    color: var(--toast-text-color);
+    background-color: transparent;
+    box-shadow: 0px 1px 2.5px 0px var(--toast-button-box-shadow-color);
+}
+
+.toast > button:not([disabled]):active {
+    box-shadow: 0px 0px 2px 3px var(--toast-button-box-shadow-active-color);
+}
+
+.toast > button:not([disabled]):focus {
+    outline: 2px solid var(--toast-button-outline-focus-color);
+}
+
+/* dialog extensions */
+.dialog button {
+    border-radius: var(--dialog-button-border-radius);
+    background-color: var(--dialog-button-background-color);
+    outline-color: var(--dialog-button-outline-color);
+}
+
+/* popup extensions */
+.popup[hide~="leave"] { pointer-events: none; }

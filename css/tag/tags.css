@@ -121,6 +121,8 @@ input::-webkit-inner-spin-button {
 }
 input[type='number'] { -moz-appearance: textfield; }
 
+image { pointer-events: none; }
+
 label { 
   display: block;
   font-weight: 500;
