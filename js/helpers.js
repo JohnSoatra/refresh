@@ -28,6 +28,7 @@ import {
     Hide,
     Target,
     regDegree,
+    Tran_In,
 } from "./constants.js";
 import {
     hides,
@@ -71,6 +72,10 @@ function isClipPath(short) {
     return (
         short === "cpi-" || short.endsWith("-cpi-")
     );
+}
+
+function isWipe(short) {
+    return short.startsWith("w");
 }
 
 function isSlideScale(short) {
@@ -214,6 +219,15 @@ function isGrid(short) {
 
 // value creators -------------------------
 
+function aspectRatioValue(value) {
+    let result = "";
+    value = value.replace("x", dimen);
+    value.split("-").forEach(each => {
+        result += (isNumber(each) ? each + dimen : each) + " ";
+    })
+    return result.trimEnd();
+}
+
 function transformValue(short, value, dimen) {
     // rotate
     if (short === "tfr-" || short.endsWith("-tfr-")) {
@@ -260,9 +274,35 @@ function clipPathValue(short, value, dimen) {
         let result = "";
         const slices = valueSplitter(value);
         slices.forEach(slice => {
-            result += isNumber(slice) ? slice + dimen : slice + " ";
+            result += (isNumber(slice) ? slice + dimen : slice) + " ";
         });
         return `inset(${result.trimEnd()})`;
+    }
+}
+
+function wipeValue(short, value, defaultValue="-16px") {
+    switch (short) {
+        case "wt":
+        case "wf": 
+            return `cpi-${value}`;
+        case "wht":
+        case "whf":
+            return `cpi-${defaultValue}-${value}`;
+        case "wvt":
+        case "wvf":
+            return `cpi-${value}-${defaultValue}`;
+        case "wtt":
+        case "wtf":
+            return `cpi-${value}-${defaultValue}-${defaultValue}-${defaultValue}`;
+        case "wrt":
+        case "wrf":
+            return `cpi-${defaultValue}-${value}-${defaultValue}-${defaultValue}`;
+        case "wbt":
+        case "wbf":
+            return `cpi-${defaultValue}-${defaultValue}-${value}-${defaultValue}`;
+        case "wlt":
+        case "wlf":
+            return `cpi-${defaultValue}-${defaultValue}-${defaultValue}-${value}`;
     }
 }
 
@@ -444,6 +484,14 @@ function backdropFilterValue(short, value, dimen) {
     }
 }
 
+function colorWorkValue(value) {
+    const slice = value.split("-");
+    if (slice.length > 1) {
+        return colorValue(slice[0]) + " " + slice.slice(1).join(" ");
+    }
+    return colorValue(value);
+}
+
 function colorValue(value) {
     if (value in pairColor) {
         return pairColor[value];
@@ -454,6 +502,14 @@ function colorValue(value) {
             return value;
         }
     }
+}
+
+function defaultValue(value, dimen) {
+    let result = "";
+    value.split("-").forEach(each => {
+        result += (isNumber(each) ? each + dimen : each) + " ";
+    })
+    return result.trimEnd();
 }
 
 // character checkers -----------------------------
@@ -496,6 +552,13 @@ function commaChecker(value) {
     return value;
 }
 
+function importantChecker(value) {
+    if (value.endsWith("-i")) {
+        value = value.slice(0, value.length - 1) + "!important";
+    }
+    return value;
+}
+
 // value validator ----------------------
 
 function validateValue(short, value, dimen) {
@@ -503,10 +566,11 @@ function validateValue(short, value, dimen) {
     value = percentageChecker(value);
     value = degreeChecker(value);
     value = commaChecker(value);
+    value = importantChecker(value);
     
     // color
     if (isColorShort(short)) {
-        return colorValue(value);
+        return colorWorkValue(value);
     }
 
     else if (isPaddingMargin(short)) {
@@ -534,17 +598,17 @@ function validateValue(short, value, dimen) {
         return transitionValue(value, dimen);
     }
 
+    // transform
     else if (isRawTransform(short)) {
         return rawTransformValue(value);
     }
-    // transform
     else if (isTransform(short)) {
         return transformValue(short, value, dimen);
     }
 
     // aspect ratio
     else if (isAspectRatio(short)) {
-        return value.replace("x", dimen);
+        return aspectRatioValue(value);
     }
 
     // grid
@@ -565,22 +629,49 @@ function validateValue(short, value, dimen) {
     // box shadow
     else if (isBoxShadow(short)) {
         return boxShadowValue(value, dimen);
-    } 
+    }
 
+    // stroke
     else if (isStrokeDashArray(short)) {
         return valueSplitter(value).join(",");
     }
 
+    // clipPath
     else if (isClipPath(short)) {
         return clipPathValue(short, value, dimen);
     }
+
     // another
-    else {
-        return isNumber(value) ? value + dimen : value;
-    }
+    return defaultValue(value, dimen);
 }
 
 // helpers -----------------------------
+
+function addTrans(element) {
+    const classesIn = tranInToClass(element.getAttribute(Tran_In));
+    element.style.transitionDuration = "0.01ms";
+    element.classList.add(...classesIn);
+    return tranProps(classesIn);
+}
+
+function arrayCompleted(base, pack) {
+    for (let i = 0; i < base.length; i++) {
+        if (!pack.includes(base[i])) return false;
+    }
+    return true;
+}
+
+function removeTrans(element, onTranEnd) {
+    const classesIn = tranInToClass(element.getAttribute(Tran_In));
+    element.style.transitionDuration = null;
+    element.classList.remove(...classesIn);
+    element.ontransitionend = (evt) => {
+        element.style.pointerEvents = null;
+        if (onTranEnd) {
+            if (onTranEnd(evt)) element.ontransitionend = null;
+        } else element.ontransitionend = null;
+    }
+}
 
 function applierClass(styles, short, nameDimen) {
     document.querySelectorAll(`[class*='${short}']`).forEach(e => {
@@ -777,6 +868,8 @@ function tranInToClass(tranIn) {
             if (short in pairTranIn) {
                 if (isSlideScale(short)) {
                     trans += `${pairTranIn[short]}${slices.slice(1).join("-")}-`;
+                } else if (isWipe(short)) {
+                    classes.push(wipeValue(short, slices.slice(1).join("-")));
                 } else {
                     classes.push(`${pairTranIn[short]}${slices.slice(1).join("-")}`);
                 }
@@ -798,7 +891,8 @@ function tranOutToClass(tranOut) {
             if (short in pairTranOut) {
                 if (isSlideScale(short)) {
                     trans += `${pairTranOut[short]}${slices.slice(1).join("-")}-`;
-                    console.log(trans);
+                }  else if (isWipe(short)) {
+                    classes.push(wipeValue(short, slices.slice(1).join("-")));
                 } else {
                     classes.push(`${pairTranOut[short]}${slices.slice(1).join("-")}`);
                 }
@@ -835,22 +929,19 @@ function validatePosition(element, defaults) {
 }
 
 function shortToProperty(shortValue) {
-    if (shortValue.startsWith("op-")) return ["opacity"];
-    if (shortValue.startsWith("tf-")) return ["transform"];
-    if (shortValue.startsWith("mxs-")) return ["max-width", "max-height"];
-    if (shortValue.startsWith("mxw-")) return ["max-width"];
-    if (shortValue.startsWith("mxh")) return ["max-height"];
-    else return null;
+    if (shortValue.startsWith("op-")) return "opacity";
+    if (shortValue.startsWith("tf-")) return "transform";
+    if (shortValue.startsWith("cpi-")) return "clip-path";
+    return null;
 }
 
 function tranProps(classes) {
     const props = [];
     classes.forEach(pair => {
-        shortToProperty(pair).forEach(prop => {
-            if (!props.includes(prop)) {
-                props.push(prop);
-            }
-        });
+        const prop = shortToProperty(pair);
+        if (prop && !props.includes(prop)) {
+            props.push(prop);
+        }
     });
     return props;
 }
@@ -900,5 +991,8 @@ export {
     isPosition,
     tranOutToClass,
     tranInToClass,
-    tranProps
+    tranProps,
+    addTrans,
+    removeTrans,
+    arrayCompleted
 }

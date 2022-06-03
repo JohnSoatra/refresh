@@ -32,27 +32,28 @@
 .title {
     outline: 1px solid var(--title-outline-color);
     padding: 2.5px 5px;
-    border-radius: var(--border-radius);
+    border-radius: var(--title-border-radius);
     pointer-events: none;
     white-space: nowrap;
+    font-weight: 500;
     color: var(--title-text-color);
     background-color: var(--title-background-color);
     box-shadow: 0px 1px 5px 1px var(--title-box-shadow-color);
-    transition-duration: 200ms;
+    transition-duration: 175ms;
 }
 
 .toast {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    outline: 1px solid var(--toast-outline-color);
-    padding: 8px 10px;
-    border-radius: var(--border-radius);
+    padding: 5px 8px;
     white-space: nowrap;
+    border-radius: var(--toast-border-radius);
+    transition-duration: 250ms;
     color: var(--toast-text-color);
+    outline: 1px solid var(--toast-outline-color);
     background-color: var(--toast-background-color);
     box-shadow: 0px 1px 5px 1px var(--toast-box-shadow-color);
-    transition-duration: 250ms;
 }
 
 .dialog,
@@ -64,8 +65,8 @@
     max-height: 100%;
     visibility: hidden;
     position: fixed;
-    z-index: 100;
-    overflow: hidden;
+    clip-path: inset(-16px -16px);
+    z-index: 100 !important;
     transition-timing-function: linear;
-    transition-property: opacity, transform, max-width, max-height;
+    transition-property: opacity, transform, clip-path;
 }

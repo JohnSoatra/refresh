@@ -6,6 +6,7 @@ const regNewLine = /\n/g;
 
 const regPercentage = /([0-9]p$)|([0-9]p-)/;
 const regDegree = /([0-9]d$)|([0-9]d-)/;
+const regImportant = /-i$/;
 
 // style id
 const Modifier = "modifier";
@@ -82,79 +83,8 @@ const Window = "window";
 const Tran_In = "tran-in";
 const Tran_Out = "tran-out";
 
-export default {
-    regHex,
-    regPoint,
-    regWs,
-    regNewLine,
-    regPercentage,
-    regDegree,
-
-    Modifier,
-    Responser,
-    Pseudo,
-
-    XS,
-    SM,
-    MD,
-    LG,
-    XL,
-    Width,
-    Height,
-    
-    MinWidth,
-    MinHeight,
-    MaxWidth,
-    MaxHeight,
-    
-    Position,
-    Dialog,
-    Popup,
-    Menu,
-    Title,
-    Toast,
-
-    For,
-    Posto,
-    Show,
-    Hide,
-    
-    Click,
-    Hover,
-    Leave,
-
-    Target,
-    Window,
-
-    Left,
-    LeftRight,
-    Right,
-    RightLeft,
-    Top,
-    TopBottom,
-    Bottom,
-    BottomTop,
-    CenterHorizontal,
-    CenterVertical,
-
-    Tran_In,
-    Tran_Out,
-
-    Triangle,
-    Rectangle,
-    Square,
-    Circle,
-
-    pathTriangle,
-    pathRectangle,
-    pathSquare,
-    pathCircle,
-
-    svgTriangle,
-    svgRectangle,
-    svgSquare,
-    svgCircle,
-}
+// duration
+const Duration = "duration";
 
 export {
     regHex,
@@ -228,4 +158,6 @@ export {
     svgRectangle,
     svgSquare,
     svgCircle,
+
+    Duration
 }

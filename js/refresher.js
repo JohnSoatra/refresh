@@ -42,6 +42,7 @@ import {
     pathRectangle,
     pathCircle,
     pathSquare,
+    Duration,
 } from "./constants.js";
 import {
     getSize,
@@ -59,11 +60,11 @@ import {
     isPosition,
     tranInToClass,
     tranOutToClass,
-    tranProps
+    tranProps,
+    addTrans,
+    removeTrans,
+    arrayCompleted
 } from "./helpers.js";
-import { 
-    Transition
-} from "./models.js";
 
 let IDs = null;
 let classes = null;
@@ -96,15 +97,16 @@ let forToast = "";
 let forTitle = "";
 
 window.addEventListener("resize", () => {
-    repositionPopups(Dialog);
-    repositionPopups(Toast);
-    repositionPopups(Menu);
-    repositionCustomPopup(Popup);
+    repositionMenu();
+    repositionPopup();
+    repositionDialog();
+    repositionToast();
+    repositionTitle();
     applyCssResponser();
 });
 document.addEventListener("click", () => {
-    tranOut(Dialog);
     tranOut(Menu);
+    tranOut(Dialog);
     tranOutPopup();
 });
 
@@ -156,8 +158,10 @@ function refresher() {
     shapeWork(Square, pathSquare, svgSquare);
     shapeWork(Circle, pathCircle, svgCircle);
 
-    // menu arrow
-    menuArrowWork();
+    // arrow
+    arrowWork(Menu);
+    arrowWork(Title);
+    arrowWork(Popup);
     
     // class
     if (changeClass()) {
@@ -229,30 +233,22 @@ function dialogWork() {
                 child.onclick = () => tranOut(Dialog);
             });
             const listener = evt => {
-                if (!element.classList.contains("v-v") || element.style.opacity === "0") {
+                if (!element.classList.contains("v-v")) {
                     evt.stopPropagation();
                     const rect = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
                     const positions = element.getAttribute(Position).split(" ");
                     
                     let i = 0;
-                    const classesIn = tranInToClass(element.getAttribute(Tran_In));
-                    element.style.transitionDuration = "1ms";
-                    element.classList.add(...classesIn);
-                    const props = tranProps(classesIn);
+                    const props = addTrans(element);
 
                     element.ontransitionend = () => {
                         if (i === props.length - 1) {
                             element.ontransitionend = null;
-                            element.style.transitionDuration = null;
                             element.classList.add("v-v");
                             const leftTop = getLeftTop(element, rect, positions);
                             element.style.left = leftTop.left + "px";
                             element.style.top = leftTop.top + "px";
-                            element.classList.remove(...classesIn);
-                            element.ontransitionend = () => {
-                                element.ontransitionend = null;
-                                element.style.pointerEvents = null;
-                            }
+                            removeTrans(element);
                         }
                         i ++;
                     }
@@ -271,7 +267,7 @@ function menuWork() {
         const id = element.getAttribute("for");
         const target = document.getElementById(id);
         if (target) {
-            validatePosition(element, [RightLeft, Bottom]);
+            validatePosition(element, [CenterHorizontal, Bottom]);
             samePopupWork(element, Menu, id);
             element.onclick = evt => evt.stopPropagation();
             document.querySelectorAll(`.${Menu}[for='${id}'] button[item]`).forEach(child => {
@@ -284,25 +280,17 @@ function menuWork() {
                     const positions = element.getAttribute(Position).split(" ");
                     
                     let i = 0;
-                    const classesIn = tranInToClass(element.getAttribute(Tran_In));
-                    element.style.transitionDuration = "1ms";
-                    element.classList.add(...classesIn);
-                    const props = tranProps(classesIn);
+                    const props = addTrans(element);
 
-                    element.ontransitionend = (evt) => {
-                        console.log(evt.propertyName)
+                    element.ontransitionend = () => {
                         if (i === props.length - 1) {
                             element.ontransitionend = null;
-                            element.style.transitionDuration = null;
                             element.classList.add("v-v");
                             const leftTop = getLeftTop(element, rect, positions);
                             element.style.left = leftTop.left + "px";
                             element.style.top = leftTop.top + "px";
-                            element.classList.remove(...classesIn);
-                            element.ontransitionend = () => {
-                                element.ontransitionend = null;
-                                element.style.pointerEvents = null;
-                            }
+
+                            removeTrans(element);
                         }
                         i ++;
                     }
@@ -329,7 +317,7 @@ function popupWork() {
                 element,
                 posto === Window ?
                     [CenterHorizontal, CenterVertical] :
-                    [RightLeft, Bottom]
+                    [CenterHorizontal, Bottom]
             );
             samePopupWork(element, Popup, id);
             element.onclick = evt => evt.stopPropagation();
@@ -338,16 +326,26 @@ function popupWork() {
                 child.onclick = () => tranOut(Popup);
             });
             const listener = evt => {
-                if (!element.classList.contains("v-v") || element.style.opacity === "0") {
+                if (!element.classList.contains("v-v")) {
                     if (evt.type === "click") evt.stopPropagation();
                     else if (evt.pointerType !== "mouse") { return; }
                     const rect = targetPosition.getBoundingClientRect();
                     const positions = element.getAttribute(Position).split(" ");
-                    element.classList.add("v-v");
-                    const leftTop = getLeftTop(element, rect, positions);
-                    element.style.left = leftTop.left + "px";
-                    element.style.top = leftTop.top + "px";
-                    element.style.opacity = 1;
+
+                    let i = 0;
+                    const props = addTrans(element);
+
+                    element.ontransitionend = () => {
+                        if (i === props.length - 1) {
+                            element.ontransitionend = null;
+                            element.classList.add("v-v");
+                            const leftTop = getLeftTop(element, rect, positions);
+                            element.style.left = leftTop.left + "px";
+                            element.style.top = leftTop.top + "px";
+                            removeTrans(element);
+                        }
+                        i++;
+                    }
                 }
             }
             const listenerName = `${id}-${Popup}`;
@@ -364,13 +362,7 @@ function popupWork() {
             if(hide === Leave) {
                 const pointerLeave = (evt) => {
                     if (evt.pointerType === "mouse") {
-                        element.style.opacity = 0;
-                        element.ontransitionend = evt => {
-                            element.ontransitionend = null;
-                            element.style.left = null;
-                            element.style.top = null;
-                            element.classList.remove("v-v");
-                        }
+                        tranOutPopup();
                     }
                 }
                 targetEvent.addEventListener('pointerleave', pointerLeave);
@@ -385,39 +377,38 @@ function titleWork() {
         const id = element.getAttribute("for");
         const target = document.getElementById(id);
         if (target) {
-            validatePosition(element, [RightLeft, Bottom]);
+            validatePosition(element, [CenterHorizontal, Bottom]);
             samePopupWork(element, Title, id);
             const pointerEnter = evt => {
-                if (evt.pointerType === 'mouse' && (!element.classList.contains("v-v") || element.style.opacity === "0")) {
+                if (evt.pointerType === 'mouse' && !element.classList.contains("v-v")) {
                     const rect = target.getBoundingClientRect();
                     const positions = element.getAttribute(Position).split(" ");
-                    element.classList.add("v-v");
-                    const leftTop = getLeftTop(element, rect, positions);
-                    element.style.left = leftTop.left + "px";
-                    element.style.top = leftTop.top + "px";
-                    element.style.opacity = 1;
+
+                    let i = 0;
+                    const props = addTrans(element);
+
+                    element.ontransitionend = () => {
+                        if (i === props.length - 1) {
+                            element.ontransitionend = null;
+                            element.classList.add("v-v");
+                            const leftTop = getLeftTop(element, rect, positions);
+                            element.style.left = leftTop.left + "px";
+                            element.style.top = leftTop.top + "px";
+                            removeTrans(element);
+                        }
+                        i++
+                    }
+
                 }
             }
             const pointerDown = (evt) => {
                 if (evt.pointerType === "mouse") {
-                    element.style.opacity = 0;
-                    element.ontransitionend = evt => {
-                        element.ontransitionend = null;
-                        element.style.left = null;
-                        element.style.top = null;
-                        element.classList.remove("v-v");
-                    }
+                    tranOut(Title);
                 }
             }
             const pointerLeave = (evt) => {
                 if (evt.pointerType === "mouse") {
-                    element.style.opacity = 0;
-                    element.ontransitionend = evt => {
-                        element.ontransitionend = null;
-                        element.style.left = null;
-                        element.style.top = null;
-                        element.classList.remove("v-v");
-                    }
+                    tranOut(Title);
                 }
             }
             const listenerName = `${id}-${Title}`;
@@ -425,8 +416,8 @@ function titleWork() {
             target.removeEventListener("pointerdown", listenerPointerDown[listenerName]);
             target.removeEventListener("pointerleave", listenerPointerLeave[listenerName]);
             target.addEventListener("pointerenter", pointerEnter);
-            target.addEventListener("pointerenter", pointerDown);
-            target.addEventListener("pointerenter", pointerLeave);
+            target.addEventListener("pointerdown", pointerDown);
+            target.addEventListener("pointerleave", pointerLeave);
             listenerPointerEnter[listenerName] = pointerEnter;
             listenerPointerDown[listenerName] = pointerDown;
             listenerPointerLeave[listenerName] = pointerLeave;
@@ -439,43 +430,45 @@ function toastWork() {
         const id = element.getAttribute("for");
         const target = document.getElementById(id);
         if (target) {
-            validatePosition(element, [CenterHorizontal, Top]);
+            validatePosition(element, [CenterHorizontal, Bottom]);
             samePopupWork(element, Toast, id);
             document.querySelectorAll(`.${Toast}[for='${id}'] [close]`).forEach(child => {
-                child.ontransitionend = (evt) => evt.stopPropagation();
-                child.onclick = (evt) => {
+                child.onclick = () => {
                     clearTimeout(timeoutToast[id]);
-                    element.style.opacity = 0;
-                    element.ontransitionend = () => {
-                        element.ontransitionend = null;
-                        element.style.left = null;
-                        element.style.top = null;
-                        element.classList.remove("v-v");
-                        delete timeoutToast[id];
-                    }
+                    tranOut(Toast);
+                    delete timeoutToast[id];
                 }
             });
-            const listener = (evt) => {
-                if (!element.classList.contains("v-v") || element.style.opacity === "0") {
+            const listener = () => {
+                if (!element.classList.contains("v-v")) {
                     const rect = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
                     let positions = element.getAttribute(Position).split(" ");
-                    element.style.opacity = 0;
-                    element.classList.add("v-v");
-                    const leftTop = getLeftTop(element, rect, positions);
-                    element.style.left = leftTop.left + "px";
-                    element.style.top = leftTop.top + "px";
-                    element.style.opacity = 1;
-                    element.ontransitionend = () => {
-                        timeoutToast[id] = setTimeout(() => {
-                            element.style.opacity = 0;
-                            element.ontransitionend = () => {
-                                element.ontransitionend = null;
-                                element.style.left = null;
-                                element.style.top = null;
-                                element.classList.remove("v-v");
-                                delete timeoutToast[id];
-                            }
-                        }, +element.getAttribute("stay-du") || 3700);
+                    
+                    const completed = [];
+                    const props = addTrans(element);
+
+                    element.ontransitionend = (evt) => {
+                        completed.push(evt.propertyName);
+                        if (arrayCompleted(props, completed)) {
+                            element.ontransitionend = null;
+                            element.classList.add("v-v");
+                            const leftTop = getLeftTop(element, rect, positions);
+                            element.style.left = leftTop.left + "px";
+                            element.style.top = leftTop.top + "px";
+                            
+                            completed.splice(0);
+                            removeTrans(element, (evt) => {
+                                completed.push(evt.propertyName);
+                                if (arrayCompleted(props, completed)) {
+                                    timeoutToast[id] = setTimeout(() => {
+                                        tranOut(Toast);
+                                        delete timeoutToast[id];
+                                    }, +element.getAttribute(Duration) || 3700);
+                                    return true;
+                                }
+                                return false;
+                            });
+                        }
                     }
                 }
             }
@@ -524,59 +517,25 @@ function shapeWork(item, path, svgContent) {
     });
 }
 
-function menuArrowWork() {
-    document.querySelectorAll(`.${Menu}`).forEach(menu => {
-        const firstChild = menu.firstElementChild;
-        if (menu.getAttribute("arrow") !== null) {
-            if (!firstChild.classList.contains("tri")) {
-                const div = document.createElement("div");
-                div.className = "tri";
-                menu.prepend(div);
+function arrowWork(item) {
+    document.querySelectorAll(`.${item}`).forEach(item => {
+        const firstChild = item.firstElementChild;
+        if (firstChild) {
+            if (item.getAttribute("arrow") !== null) {
+                if (!firstChild.classList.contains("tri")) {
+                    const div = document.createElement("div");
+                    div.className = "tri";
+                    item.prepend(div);
+                }
+            } else if (firstChild.classList.contains("tri")) {
+                item.removeChild(firstChild);
             }
-        } else if (firstChild.classList.contains("tri")) {
-            menu.removeChild(firstChild);
         }
     });
 }
 
-function hideDialogs() {
-    document.querySelectorAll(`.${Dialog}`).forEach(element => {
-        if (element.classList.contains("v-v")|| element.style.opacity === "1") {
-            element.style.opacity = 0;
-            element.classList.remove("v-v");
-        }
-    });
-}
-
-function hideMenus() {
-    document.querySelectorAll(`.${Menu}`).forEach(element => {
-        if (element.classList.contains("v-v")|| element.style.opacity === "1") {
-            element.style.opacity = 0;
-            element.classList.remove("v-v");
-        }
-    });
-}
-
-function hidePopups() {
-    document.querySelectorAll(`.${Popup}`).forEach(element => {
-        if (element.classList.contains("v-v")|| element.style.opacity === "1") {
-            element.style.opacity = 0;
-            element.classList.remove("v-v");
-        }
-    });
-}
-
-function hideToasts() {
-    document.querySelectorAll(`.${Toast}`).forEach(element => {
-        if (element.classList.contains("v-v")|| element.style.opacity === "1") {
-            element.style.opacity = 0;
-            element.classList.remove("v-v");
-        }
-    });
-}
-
-function repositionPopups(item) {
-    document.querySelectorAll(`.${item}[for]`).forEach(element => {
+function repositionMenu() {
+    document.querySelectorAll(`.${Menu}[for]`).forEach(element => {
         if (element.classList.contains("v-v")) {
             const id = element.getAttribute("for");
             const target = document.getElementById(id);
@@ -591,8 +550,32 @@ function repositionPopups(item) {
     });
 }
 
-function repositionCustomPopup(item) {
-    document.querySelectorAll(`.${item}[for]`).forEach(element => {
+function repositionDialog() {
+    document.querySelectorAll(`.${Dialog}[for]`).forEach(element => {
+        if (element.classList.contains("v-v")) {
+            const rect = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
+            const positions = element.getAttribute(Position).split(" ");
+            const leftTop = getLeftTop(element, rect, positions);
+            element.style.left = leftTop.left + "px";
+            element.style.top = leftTop.top + "px";
+        }
+    });
+}
+
+function repositionToast() {
+    document.querySelectorAll(`.${Toast}[for]`).forEach(element => {
+        if (element.classList.contains("v-v")) {
+            const rect = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
+            const positions = element.getAttribute(Position).split(" ");
+            const leftTop = getLeftTop(element, rect, positions);
+            element.style.left = leftTop.left + "px";
+            element.style.top = leftTop.top + "px";
+        }
+    });
+}
+
+function repositionPopup() {
+    document.querySelectorAll(`.${Popup}[for]`).forEach(element => {
         if (element.classList.contains("v-v")) {
             const id = element.getAttribute(For);
             const posto = element.getAttribute(Posto) || Target;
@@ -602,6 +585,22 @@ function repositionCustomPopup(item) {
             const targetPosition = getPosto(posto, targetEvent);
             if (show && hide && targetEvent && targetPosition) {
                 const rect = targetPosition.getBoundingClientRect();
+                const positions = element.getAttribute(Position).split(" ");
+                const leftTop = getLeftTop(element, rect, positions);
+                element.style.left = leftTop.left + "px";
+                element.style.top = leftTop.top + "px";
+            }
+        }
+    });
+}
+
+function repositionTitle() {
+    document.querySelectorAll(`.${Title}[for]`).forEach(element => {
+        if (element.classList.contains("v-v")) {
+            const id = element.getAttribute("for");
+            const target = document.getElementById(id);
+            if (target) {
+                const rect = target.getBoundingClientRect();
                 const positions = element.getAttribute(Position).split(" ");
                 const leftTop = getLeftTop(element, rect, positions);
                 element.style.left = leftTop.left + "px";
@@ -629,13 +628,15 @@ function tranOut(item) {
 
 function tranOutPopup() {
     document.querySelectorAll(`.${Popup}:not([hide]), .${Popup}[hide='click']`).forEach(element => {
-        if (element.classList.contains("v-v")|| element.style.opacity === "1") {
-            element.style.opacity = 0;
+        if (element.classList.contains("v-v")) {
+            const classesOut = tranOutToClass(element.getAttribute(Tran_Out));
+            element.style.pointerEvents = "none";
+            element.classList.add(...classesOut);
             element.ontransitionend = () => {
                 element.ontransitionend = null;
-                element.style.top = null;
-                element.style.left = null;
-                element.classList.remove("v-v");
+                element.style.top = window.innerHeight + "px";
+                element.style.left = window.innerWidth + "px";
+                element.classList.remove("v-v", ...classesOut);
             }
         }
     });

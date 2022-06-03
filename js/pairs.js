@@ -374,6 +374,9 @@ const pairClass = {
 
     // clip
     "cpi-": ["clip-path", "px"],
+    
+    //text
+    "tuo-": ["text-underline-offset", "px"]
 };
 
 const pairSize = {
@@ -753,11 +756,13 @@ const pairTranIn = {
     "scyf": "sy-",
     "sczf": "sz-",
 
-    "wf": "i-",
-    "wtf": "it-",
-    "wrf": "ir-",
-    "wbf": "ib-",
-    "wlf": "il-",
+    "wf": "cpi-",
+    "whf": "cpi-",
+    "wvf": "cpi-",
+    "wtf": "cpi-",
+    "wrf": "cpi-",
+    "wbf": "cpi-",
+    "wlf": "cpi-",
 };
 
 const pairTranOut = {
@@ -773,9 +778,13 @@ const pairTranOut = {
     "scyt": "sy-",
     "sczt": "sz-",
 
-    "wt": "mxs-",
-    "wxt": "mxw-",
-    "wyt": "mxh-",
+    "wt": "cpi-",
+    "wht": "cpi-",
+    "wvt": "cpi-",
+    "wtt": "cpi-",
+    "wrt": "cpi-",
+    "wbt": "cpi-",
+    "wlt": "cpi-",
 };
 
 const pairTimingFunction = {
