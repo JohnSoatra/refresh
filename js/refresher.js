@@ -518,18 +518,22 @@ function shapeWork(item, path, svgContent) {
 }
 
 function arrowWork(item) {
-    document.querySelectorAll(`.${item}`).forEach(item => {
-        const firstChild = item.firstElementChild;
+    document.querySelectorAll(`.${item}`).forEach(element => {
+        const firstChild = element.firstElementChild;
         if (firstChild) {
-            if (item.getAttribute("arrow") !== null) {
+            if (element.getAttribute("arrow") !== null) {
                 if (!firstChild.classList.contains("tri")) {
                     const div = document.createElement("div");
                     div.className = "tri";
-                    item.prepend(div);
+                    element.prepend(div);
                 }
             } else if (firstChild.classList.contains("tri")) {
-                item.removeChild(firstChild);
+                element.removeChild(firstChild);
             }
+        } else if (element.getAttribute("arrow") !== null) {
+            const div = document.createElement("div");
+            div.className = "tri";
+            element.prepend(div);
         }
     });
 }
